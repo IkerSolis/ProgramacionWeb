@@ -198,8 +198,7 @@
     .breadcrumb-item a { color: var(--purple-soft); }
     .breadcrumb-item.active { color: var(--green-accent); }
     .breadcrumb-item + .breadcrumb-item::before { color: var(--purple-soft); }
-
-    /* Botones Panel Admin */
+    
 .nk-btn {
   padding: 12px 22px;
   border-radius: 14px;
