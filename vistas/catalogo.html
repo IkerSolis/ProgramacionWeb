@@ -4,17 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalogo</title>
+
+    <link rel="stylesheet" href="../styles.css"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Syne:wght@400;600&display=swap" rel="stylesheet"/>
+
+
 </head>
-<body style="background-color: #a450b5";>
+<body>
+
+    <nav class="navbar navbar-expand-lg sticky-top" style="background-color: var(--purple-mid);">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="../index.html" style="color: var(--white-off);">
+                <img src="../img/logo.jpeg" alt="Logo" style="width: 60px; height: auto;" class="me-2">
+                Nexus<span>Key</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navegacion">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navegacion">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" style="color: var(--white-off);" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: var(--white-off);" href="#">Características</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: var(--white-off);" href="#">Precios</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="catalog-header">
+        <div class="container">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-2">
+            <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="../index.html">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="../vistas/panel_administracion.html">Panel de Administración</a></li>
+            <li class="breadcrumb-item active" style="color: var(--green-accent);">Catálogo</li>
+            </ol>
+        </nav>
+        <div class="d-flex flex-wrap align-items-end justify-content-between gap-3">
+            <div>
+            <h1 class="catalog-header-title mb-1">
+                Catálogo de <span>Videojuegos</span>
+            </h1>
+            <p style="color:var(--purple-soft);font-size:.92rem;margin:0;">
+                Explora nuestra colección completa. Filtra, busca y encuentra tu próximo juego favorito.
+            </p>
+            </div>
+        </div>
+        </div>
+    </section>
 
 
-    <h1 style="text-align: center; color: blueviolet; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">Catalogo</h1>
-    <div style="text-align: justify; padding: 10px;">
-        <p>"Lista de productos"</p>
+    <footer>
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-12 col-md-4">
+          <div class="footer-brand mb-2">Nexus<span>Key</span></div>
+          <p style="color:var(--purple-soft);font-size:.88rem;max-width:280px;">
+            Tu catálogo de videojuegos de confianza. Encuentra, compara y adquiere los mejores títulos.
+          </p>
+          <div class="mt-3" id = "redes">
+            <p class="footer-heading">Contactanos</p>
+            <a href="https://x.com" class="social-icon"><i class="bi bi-twitter-x"></i></a>
+            <a href="https://instagram.com" class="social-icon"><i class="bi bi-instagram"></i></a>
+            <a href="https://youtube.com" class="social-icon"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-md-4">
+          <p class="footer-heading">Soporte</p>
+          <a href="#" class="footer-link">Mi cuenta</a>
+        </div>
+        <div class="col-6 col-md-4">
+          <p class="footer-heading">Legal</p>
+          <a href="../vistas/mision.html" class="footer-link">Mision</a>
+          <a href="../vistas/vision.html" class="footer-link">Vision</a>
+          <a href="#" class="footer-link">Terminos</a>
+        </div>
+      </div>
+      <hr class="footer-divider"/>
+      <div class="d-flex flex-wrap justify-content-between align-items-center pt-2">
+        <p style="font-size:.8rem;color:var(--purple-soft);margin:0;">
+          &copy; 2026 NexusKey. Todos los derechos reservados.
+        </p>
+      </div>
     </div>
-    <br>
-
-    <a href="../index.html">Volver al inicio</a>
+  </footer>
 
 </body>
 </html>
