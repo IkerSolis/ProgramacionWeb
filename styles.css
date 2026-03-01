@@ -46,7 +46,7 @@
       padding: .5rem 1rem !important;
       transition: color .2s;
     }
-    .nav-link:hover, .nav-link.active {
+    .nav-link:hover {
       color: var(--green-accent) !important;
     }
 
@@ -83,3 +83,93 @@
       font-size: 1.1rem;
       max-width: 480px;
     }
+
+    .search-section {
+      background-color: var(--purple-mid);
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--purple-light);
+    }
+
+    .search-input {
+      background-color: var(--purple-dark);
+      border: 1.5px solid var(--purple-light);
+      color: var(--white-off);
+      border-radius: 4px 0 0 4px;
+    }
+    
+    .search-input::placeholder { color: var(--purple-soft); }
+    .search-input:focus {
+      background-color: var(--purple-dark);
+      border-color: var(--green-accent);
+      color: var(--white-off);
+      box-shadow: none;
+    }
+
+    .search-btn {
+      background-color: var(--green-accent);
+      border: none;
+      color: var(--purple-dark);
+      font-weight: 700;
+      border-radius: 0 4px 4px 0;
+      padding: .5rem 1.2rem;
+      transition: background .2s;
+    }
+    .search-btn:hover { background-color: var(--green-dim); }
+
+    .filter-select {
+      background-color: var(--purple-dark);
+      border: 1.5px solid var(--purple-light);
+      color: var(--white-off);
+      border-radius: 4px;
+    }
+    .filter-select:focus {
+      border-color: var(--green-accent);
+      box-shadow: none;
+      background-color: var(--purple-dark);
+      color: var(--white-off);
+    }
+
+    footer {
+      background-color: var(--purple-mid);
+      border-top: 2px solid var(--purple-light);
+      padding: 2.5rem 0 1.5rem;
+    }
+
+    .footer-brand {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--white-off);
+    }
+    .footer-brand span { color: var(--green-accent); }
+
+    .footer-link {
+      color: var(--purple-soft);
+      font-size: .9rem;
+      display: block;
+      margin-bottom: .35rem;
+      transition: color .2s;
+    }
+    .footer-link:hover { color: var(--green-accent); }
+
+    .footer-heading {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .1em;
+      color: var(--green-accent);
+      text-transform: uppercase;
+      margin-bottom: .9rem;
+    }
+
+    .footer-divider {
+      border-color: var(--purple-light);
+      opacity: .4;
+    }
+
+    .social-icon {
+      font-size: 1.2rem;
+      color: var(--purple-soft);
+      margin-right: .8rem;
+      transition: color .2s;
+    }
+    .social-icon:hover { color: var(--green-accent); }
