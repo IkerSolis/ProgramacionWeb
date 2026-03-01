@@ -241,3 +241,35 @@
   box-shadow: 0 10px 25px rgba(255,77,109,.35);
 }
 
+/* Catálogo temporal*/
+.catalog-products {
+  background: transparent;
+}
+
+.product-card {
+  background: linear-gradient(180deg, rgba(40,20,70,.9), rgba(20,10,40,.9));
+  border-radius: 14px;
+  padding: 12px;
+  text-align: center;
+  transition: all .25s ease;
+  cursor: pointer;
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 10px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.product-name {
+  margin-top: 10px;
+  font-weight: 600;
+  color: var(--white-off);
+  font-size: .95rem;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,255,120,.2);
+}
