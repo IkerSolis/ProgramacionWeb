@@ -1,14 +1,11 @@
 <script setup>
 import { ref } from 'vue';
 
-// Variables que elige el usuario
 const textoBusqueda = ref('');
 const plataforma = ref('');
 const genero = ref('');
 const precio = ref('');
 
-// 2. Definimos el "emit". Esto sirve para avisarle a la página principal 
-// que el usuario hizo clic en buscar y pasarle los datos filtrados.
 const emit = defineEmits(['buscar']);
 
 const ejecutarBusqueda = () => {
@@ -18,9 +15,7 @@ const ejecutarBusqueda = () => {
     genero: genero.value,
     precio: precio.value
   });
-  
-  // Nota: Cuando configuremos Vue Router, aquí agregaremos una línea para 
-  // redirigir al usuario automáticamente a la página de /catalogo
+
 };
 </script>
 

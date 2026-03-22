@@ -18,7 +18,6 @@ const mostrarConfirmPassword = ref(false);
 const togglePassword = () => mostrarPassword.value = !mostrarPassword.value;
 const toggleConfirmPassword = () => mostrarConfirmPassword.value = !mostrarConfirmPassword.value;
 
-// Calculamos la fuerza de la contraseña (0 a 4)
 const nivelSeguridad = computed(() => {
   let score = 0;
   const pw = form.value.password;
@@ -30,7 +29,6 @@ const nivelSeguridad = computed(() => {
 });
 
 const textoSeguridad = computed(() => {
-  // Si el campo está vacío, no mostramos nada
   if (form.value.password.length === 0) return { texto: '', color: 'transparent' };
   
   switch (nivelSeguridad.value) {

@@ -1,6 +1,4 @@
 <script setup>
-// Por ahora mantenemos la lógica primitiva, solo con un par de funciones
-// de prueba para que veas que los botones responden en la consola.
 const editarProducto = () => {
   console.log('Iniciando flujo para editar producto...');
 };
