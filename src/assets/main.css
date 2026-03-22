@@ -1,0 +1,303 @@
+:root {
+      --purple-dark:   #1a0a2e;
+      --purple-mid:    #2d1057;
+      --purple-light:  #6b3fa0;
+      --purple-soft:   #9d71c8;
+      --green-accent:  #7fff6e;
+      --green-dim:     #4db847;
+      --white-off:     #ede8f7;
+      --card-bg:       #241042;
+    }
+
+    body {
+      background-color: var(--purple-dark);
+      /* 1. Rediseñamos los gradientes en forma de círculos para que se mezclen mejor */
+      background-image:
+        radial-gradient(circle at 15% 50%, rgba(107, 63, 160, 0.35) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(45, 16, 87, 0.6) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(157, 113, 200, 0.15) 0%, transparent 50%);
+      
+      /* 2. Hacemos el "lienzo" del fondo al doble de su tamaño normal */
+      background-size: 200% 200%;
+      
+      /* 3. Aplicamos la animación: dura 18s, es suave (ease-in-out) y va de ida y vuelta (alternate) */
+      animation: auraGamer 18s ease-in-out infinite alternate;
+
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Syne', sans-serif;
+      color: var(--white-off);
+    }
+
+    /* 4. Aquí definimos el camino que recorrerá el fondo */
+    @keyframes auraGamer {
+      0% {
+        background-position: 0% 0%;
+      }
+      50% {
+        background-position: 100% 100%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    h1, h2, h3, .brand {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    a { color: var(--green-accent); text-decoration: none; }
+    a:hover { color: var(--green-dim); }
+
+    .navbar {
+      background-color: var(--purple-mid);
+      border-bottom: 2px solid var(--green-accent);
+    }
+
+    .navbar-brand {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: var(--white-off) !important;
+      letter-spacing: .05em;
+    }
+
+    .navbar-brand span {
+      color: var(--green-accent);
+    }
+
+    .nav-link {
+      color: var(--white-off) !important;
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: .5rem 1rem !important;
+      transition: color .2s;
+    }
+    .nav-link:hover {
+      color: var(--green-accent) !important;
+    }
+
+    .navbar-toggler {
+      border-color: var(--green-accent);
+    }
+
+    .navbar-toggler-icon {
+      filter: invert(80%) sepia(80%) saturate(400%) hue-rotate(60deg);
+    }
+
+    .home-top {
+      background: linear-gradient(135deg, var(--purple-mid) 0%, var(--purple-dark) 60%, #0d0020 100%);
+      border-bottom: 1px solid var(--purple-light);
+      padding: 5rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .home-top-title {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--white-off);
+    }
+
+    .home-top-title .accent {
+      color: var(--green-accent);
+      text-shadow: 0 0 18px rgba(127,255,110,.45);
+    }
+
+    .home-top-subtitle {
+      color: var(--purple-soft);
+      font-size: 1.1rem;
+      max-width: 480px;
+    }
+
+    .search-section {
+      background-color: var(--purple-mid);
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--purple-light);
+    }
+
+    .search-input {
+      background-color: var(--purple-dark);
+      border: 1.5px solid var(--purple-light);
+      color: var(--white-off);
+      border-radius: 4px 0 0 4px;
+    }
+    
+    .search-input::placeholder { color: var(--purple-soft); }
+    .search-input:focus {
+      background-color: var(--purple-dark);
+      border-color: var(--green-accent);
+      color: var(--white-off);
+      box-shadow: none;
+    }
+
+    .search-btn {
+      background-color: var(--green-accent);
+      border: none;
+      color: var(--purple-dark);
+      font-weight: 700;
+      border-radius: 0 4px 4px 0;
+      padding: .5rem 1.2rem;
+      transition: background .2s;
+    }
+    .search-btn:hover { background-color: var(--green-dim); }
+
+    .filter-select {
+      background-color: var(--purple-dark);
+      border: 1.5px solid var(--purple-light);
+      color: var(--white-off);
+      border-radius: 4px;
+    }
+    .filter-select:focus {
+      border-color: var(--green-accent);
+      box-shadow: none;
+      background-color: var(--purple-dark);
+      color: var(--white-off);
+    }
+
+    footer {
+      background-color: var(--purple-mid);
+      border-top: 2px solid var(--purple-light);
+      padding: 2.5rem 0 1.5rem;
+    }
+
+    .footer-brand {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--white-off);
+    }
+    .footer-brand span { color: var(--green-accent); }
+
+    .footer-link {
+      color: var(--purple-soft);
+      font-size: .9rem;
+      display: block;
+      margin-bottom: .35rem;
+      transition: color .2s;
+    }
+    .footer-link:hover { color: var(--green-accent); }
+
+    .footer-heading {
+      font-family: 'Orbitron', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .1em;
+      color: var(--green-accent);
+      text-transform: uppercase;
+      margin-bottom: .9rem;
+    }
+
+    .footer-divider {
+      border-color: var(--purple-light);
+      opacity: .4;
+    }
+
+    .social-icon {
+      font-size: 1.2rem;
+      color: var(--purple-soft);
+      margin-right: .8rem;
+      transition: color .2s;
+    }
+    .social-icon:hover { color: var(--green-accent); }
+
+    .catalog-header {
+      background: linear-gradient(135deg, var(--purple-mid) 0%, var(--purple-dark) 100%);
+      border-bottom: 1px solid var(--purple-light);
+      padding: 2.5rem 0 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .catalog-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 120% at 90% 50%, rgba(107,63,160,.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .catalog-header-title {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 900;
+      color: var(--white-off);
+    }
+    .catalog-header-title span { color: var(--green-accent); }
+    .breadcrumb-item { font-size: .82rem; }
+    .breadcrumb-item a { color: var(--purple-soft); }
+    .breadcrumb-item.active { color: var(--green-accent); }
+    .breadcrumb-item + .breadcrumb-item::before { color: var(--purple-soft); }
+    
+.nk-btn {
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-family: 'Syne', sans-serif;
+  border: none;
+  transition: all .25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nk-add {
+  background: linear-gradient(135deg, #1db954, var(--green-accent));
+  color: #0b0b0b;
+}
+
+.nk-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,255,120,.35);
+}
+
+.nk-edit {
+  background: linear-gradient(135deg, #6a5cff, #9f8cff);
+  color: #fff;
+}
+
+.nk-edit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(159,140,255,.35);
+}
+
+.nk-delete {
+  background: linear-gradient(135deg, #ff4d6d, #ff6b81);
+  color: #fff;
+}
+
+.nk-delete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255,77,109,.35);
+}
+
+/* Catálogo temporal*/
+.catalog-products {
+  background: transparent;
+}
+
+.product-card {
+  background: linear-gradient(180deg, rgba(40,20,70,.9), rgba(20,10,40,.9));
+  border-radius: 14px;
+  padding: 12px;
+  text-align: center;
+  transition: all .25s ease;
+  cursor: pointer;
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 10px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.product-name {
+  margin-top: 10px;
+  font-weight: 600;
+  color: var(--white-off);
+  font-size: .95rem;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,255,120,.2);
+}
