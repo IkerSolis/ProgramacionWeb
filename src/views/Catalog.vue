@@ -1,21 +1,23 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import GameCard from '../components/GameCard.vue';
 
-const juegosCatalogo = ref([
+const juegosCatalogo = ref([])
+
+const juegosBase = [
     {
         id: 1,
         titulo: "Hora Pico: Rumble Arena",
-        plataforma: "Xbox Key",
+        plataforma: ["Xbox"],
         imagen: "/img/horaPico-Rumbel.png",
-        precioOriginal: "299.00",
-        precioFinal: "299.00",
+        precioOriginal: "1299.99",
+        precioFinal: "1299.99",
         descuento: 0
     },
     {
         id: 2,
         titulo: "Cyberpunk 2077",
-        plataforma: "PC / Steam Key",
+        plataforma: ["Steam"],
         imagen: "/img/cyberpunk.webp",
         precioOriginal: "899.00",
         precioFinal: "449.50",
@@ -24,7 +26,7 @@ const juegosCatalogo = ref([
     {
         id: 3,
         titulo: "Helldivers 2",
-        plataforma: "PS5 Key",
+        plataforma: ["PS5"],
         imagen: "/img/helldivers.jpg",
         precioOriginal: "699.00",
         precioFinal: "699.00",
@@ -33,14 +35,25 @@ const juegosCatalogo = ref([
     {
         id: 4,
         titulo: "Elden Ring",
-        plataforma: "PC / Steam Key",
+        plataforma: ["Steam"],
         imagen: "/img/eldenring.webp",
         precioOriginal: "799.00",
         precioFinal: "799.00",
         descuento: 0
     }
+];
 
-]);
+onMounted(() => {
+  const juegosGuardados = JSON.parse(localStorage.getItem('juegos')) || []
+
+  juegosCatalogo.value = [
+    ...juegosBase,
+    ...juegosGuardados.map((juego, index) => ({
+      ...juego,
+      id: Date.now() + index
+    }))
+  ]
+});
 
 const sumarAlCarrito = (juego) => {
     console.log(`Añadiste ${juego.titulo} al carrito desde el catálogo`);
