@@ -13,8 +13,9 @@ const slides = ref([
   },
   {
     id: 1,
-    tipo: 'mixto', // Solo texto centrado
+    tipo: 'mixto',
     titulo: '<span class="accent">Misión</span>',
+    badge: 'Lo que buscamos',
     texto: '"Nuestra misión es proporcionar a la comunidad gamer un acceso directo y económico a licencias digitales de videojuegos, eliminando los sobreprecios impuestos por intermediarios y garantizando un sistema de entrega automatizada las 24 horas, los 7 días de la semana."',
     imagen: '/img/mision.jpg'
   },
@@ -25,10 +26,12 @@ const slides = ref([
     texto: 'Ser el marketplace de llaves virtuales líder en la región para el año 2030, reconocidos por ofrecer la plataforma más robusta, segura y rápida del mercado. Aspiramos a expandir nuestro catálogo a todas las plataformas de software global.'
   },
   {
-    id: 3,
-    tipo: 'texto',
-    titulo: 'Nuevo <span class="accent">Apartado</span>',
-    texto: 'Aquí puedes colocar promociones, anuncios de torneos, o cualquier información importante que quieras destacar para tu comunidad.'
+    id: 4,
+    tipo: 'mixto',
+    badge: 'Comprueba las ofertas que ocurren ahora mismo',
+    titulo: '<span class="accent">Ofertas Actuales!</span>',
+    texto: '"Conoce las nuevas ofertas de Verano."',
+    imagen: '/img/banner.png'
   }
 ]);
 
@@ -119,30 +122,67 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/* 1. Estructura base para que el carrusel no brinque de tamaño */
+
 .carousel-container {
   overflow: hidden;
-  padding-bottom: 6rem; /* Dejamos espacio abajo para los controles */
-}
-.min-slide-height {
-  min-height: 400px; /* Asegura que la sección no colapse si hay poco texto */
+  padding-bottom: 6rem;
+  position: relative;
 }
 
-/* 2. Animaciones de Transición de Vue (El deslizamiento suave) */
+/*El pseudo-elemento que crea el fondo animado */
+.carousel-container::before {
+  content: '';
+  position: absolute;
+  inset: -50px; 
+  z-index: 0; /* Lo ponemos detrás de todo el contenido */
+
+  background-image: url('/img/patron-logos.svg');
+
+  background-repeat: repeat;
+
+  background-size: 80px 80px;
+
+  opacity: 0.2;
+  filter: blur(4px);
+
+  animation: moverDiagonal 30s linear infinite;
+  pointer-events: none;
+}
+
+.relative-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.min-slide-height {
+  min-height: 400px;
+}
+/* Definimos la animación para el recorrido diagonal */
+@keyframes moverDiagonal {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 60px 60px;
+  }
+}
+.min-slide-height {
+  min-height: 400px;
+}
+
 .fade-slide-enter-active,
 .fade-slide-leave-active {
   transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .fade-slide-enter-from {
   opacity: 0;
-  transform: translateX(30px); /* Entra desde la derecha */
+  transform: translateX(30px);
 }
 .fade-slide-leave-to {
   opacity: 0;
-  transform: translateX(-30px); /* Sale hacia la izquierda */
+  transform: translateX(-30px);
 }
 
-/* 3. Controles (Bolitas) */
 .carousel-dots {
   position: absolute;
   bottom: 25px;
@@ -169,26 +209,24 @@ onUnmounted(() => {
 }
 .dot-btn.active {
   background-color: var(--green-accent);
-  width: 35px; /* Se estira en forma de píldora cuando está activa */
+  width: 35px;
   border-radius: 10px;
   opacity: 1;
   box-shadow: 0 0 10px rgba(127,255,110,0.5);
 }
 
-/* 4. Barra de Progreso */
 .progress-container {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 4px;
-  background-color: rgba(107, 63, 160, 0.2); /* Fondo sutil */
+  background-color: rgba(107, 63, 160, 0.2);
 }
 .progress-bar-fill {
   height: 100%;
   background-color: var(--green-accent);
   width: 0%;
-  /* La animación debe durar exactamente lo mismo que 'tiempoSlide' (6s) */
   animation: llenarBarra 20s linear forwards;
 }
 
