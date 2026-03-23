@@ -25,8 +25,8 @@ const validarFormulario = () => {
   if (juego.value.precioOriginal < 0) errores.value.push("El precio original no puede ser negativo")
   if (juego.value.precioFinal < 0) errores.value.push("El precio final no puede ser negativo")
 
-  if (Number(juego.value.precioFinal) > Number(juego.value.precioOriginal)) {
-    errores.value.push("El precio final no puede ser mayor al precio original")
+  if (Number(juego.value.precioFinal) < Number(juego.value.precioOriginal)) {
+    errores.value.push("El precio final no puede ser menor al precio original")
   }
 
   return errores.value.length === 0
