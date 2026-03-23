@@ -6,7 +6,7 @@ import HeroCarousel from '../components/HeroCarousel.vue';
 
 const juegosDestacados = ref([
     { id: 1, titulo: "Cyberpunk 2077", plataforma: "PC / Steam Key", imagen: "/img/cyberpunk.webp", precioOriginal: "899.00", precioFinal: "449.50", descuento: 50 },
-    { id: 2, titulo: "Hora Pico: Rumble", plataforma: "Xbox Key", imagen: "/img/horaPico-Rumbel.png", precioOriginal: "299.00", precioFinal: "239.20", descuento: 20 },
+    { id: 2, titulo: "Hora Pico: Rumble", plataforma: "Xbox Key", imagen: "/img/horaPico-Rumbel.png", precioOriginal: "1299.99", precioFinal: "1299.99", descuento: 0 },
     { id: 3, titulo: "Elden Ring", plataforma: "PC / Steam Key", imagen: "/img/eldenring.webp", precioOriginal: "799.00", precioFinal: "799.00", descuento: 0 },
     { id: 4, titulo: "Helldivers 2", plataforma: "PS5 Key", imagen: "/img/helldivers.jpg", precioOriginal: "699.00", precioFinal: "699.00", descuento: 0 }
 ]);
@@ -21,7 +21,7 @@ const sumarAlCarrito = (juego) => { console.log(`Añadido: ${juego.titulo}`); };
 
     <SearchBar @buscar="manejarBusqueda" />
 
-    <section class="featured-games py-5" style="background-color: var(--purple-dark); border-bottom: 1px solid rgba(107, 63, 160, 0.3);">
+    <section class="featured-container py-5">
       <div class="container">
         <div class="d-flex align-items-center mb-4 pb-2">
           <i class="bi bi-star-fill me-3 fs-2" style="color: var(--green-accent); filter: drop-shadow(0 0 8px rgba(127,255,110,0.6));"></i>

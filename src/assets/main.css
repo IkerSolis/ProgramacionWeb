@@ -298,3 +298,38 @@
   transform: translateY(-4px);
   box-shadow: 0 12px 30px rgba(0,255,120,.2);
 }
+
+.featured-container {
+  overflow: hidden;
+  padding-bottom: 6rem;
+  position: relative;
+}
+
+/*El pseudo-elemento que crea el fondo animado */
+.featured-container::before {
+  content: '';
+  position: absolute;
+  inset: -50px; 
+  z-index: 0; /* Lo ponemos detrás de todo el contenido */
+
+  background-image: url('/img/patron-logos.svg');
+
+  background-repeat: repeat;
+
+  background-size: 80px 80px;
+
+  opacity: 0.2;
+  filter: blur(4px);
+
+  animation: moverDiagonal 30s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes moverDiagonal {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 60px 60px;
+  }
+}
