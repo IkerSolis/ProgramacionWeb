@@ -1,18 +1,10 @@
 <script setup>
 import { ref } from 'vue';
-
-defineProps({
-  tipo: {
-    type: String,
-    default: 'user'
-  },
-  login: {
-    type: Boolean,
-    default: false
-  }
-});
+import { usuarioActual } from '../data/estado.js';
+import { useRouter } from 'vue-router';
 
 const cantidadCarrito = ref(0);
+const router = useRouter();
 
 const cerrarMenu = () => {
   const menu = document.getElementById('navegacion');
@@ -24,6 +16,16 @@ const cerrarMenu = () => {
       bsCollapse.hide();
     }
   }
+};
+
+const cerrarSesion = () => {
+  localStorage.removeItem('usuarioNexus');
+  
+  usuarioActual.value = null;
+  
+  cerrarMenu();
+
+  router.push('/login');
 };
 
 </script>
@@ -52,7 +54,7 @@ const cerrarMenu = () => {
                     <a class="nav-link" style="color: var(--white-off);" href="#redes" @click="cerrarMenu">Redes Sociales</a>
                 </li>
                 
-                <li class="nav-item ms-lg-3" v-if="!login">
+                <li class="nav-item ms-lg-3" v-if="!usuarioActual">
                     <router-link class="btn btn-outline-light d-flex align-items-center gap-2" 
                        to="/login" 
                        style="border-radius: 50px; padding: 0.4rem 1.2rem; border-color: var(--white-off); color: var(--white-off);"
@@ -62,7 +64,7 @@ const cerrarMenu = () => {
                     </router-link>
                 </li>
 
-                <li class="nav-item ms-lg-2 mt-2 mt-lg-0" v-if="tipo == 'user'">
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0" v-if="usuarioActual?.role === 'user'">
                     <router-link class="btn d-flex align-items-center gap-2 shadow-sm" 
                        to="/carrito" 
                        style="background-color: var(--green-accent); color: var(--purple-dark); border-radius: 50px; padding: 0.4rem 1.2rem; font-weight: 700; border: none; transition: all 0.2s ease;"
@@ -75,10 +77,17 @@ const cerrarMenu = () => {
                     </router-link>
                 </li>
 
-                <li class="nav-item" v-if="tipo === 'admin'">
-                    <router-link class="nav-link active" style="color: var(--white-off);" to="/panel" @click="cerrarMenu">
-                        Panel de Administración
-                    </router-link>
+                <li class="nav-item ms-lg-3 dropdown" v-if="usuarioActual">
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle me-1"></i> 
+                        Hola, {{ usuarioActual.username }} </a>
+                    <ul class="dropdown-menu dropdown-menu-end" style="background-color: var(--purple-mid);">
+                        <li v-if="usuarioActual.role === 'admin'">
+                        <router-link class="dropdown-item text-white" to="/panel">Panel Admin</router-link>
+                        </li>
+                        <li><hr class="dropdown-divider" style="border-color: var(--purple-light);"></li>
+                        <li><a class="dropdown-item text-danger" href="#" @click.prevent="cerrarSesion">Cerrar Sesión</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>

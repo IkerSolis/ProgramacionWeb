@@ -1,9 +1,14 @@
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { cuentasPrueba } from '../data/users.js';
+import { usuarioActual } from '../data/estado.js';
 
 // Variables reactivas para el formulario
 const email = ref('');
 const password = ref('');
+
+const router = useRouter();
 
 // Variable y función para mostrar/ocultar la contraseña
 const mostrarPassword = ref(false);
@@ -13,8 +18,24 @@ const togglePassword = () => {
 
 // Función que se ejecutará al enviar el formulario
 const iniciarSesion = () => {
-  console.log('Intentando iniciar sesión con:', email.value, password.value);
-  // Aquí más adelante conectaremos tu base de datos o sistema de autenticación
+  // Buscamos si existe un usuario con ese correo y contraseña
+  const usuarioEncontrado = cuentasPrueba.find(u => 
+    u.email === email.value && u.password === password.value
+  );
+
+  if (usuarioEncontrado) {
+    localStorage.setItem('usuarioNexus', JSON.stringify(usuarioEncontrado));
+    
+    usuarioActual.value = usuarioEncontrado;
+    
+    if (usuarioActual.value.role === 'admin') {
+      router.push('/panel');
+    } else {
+      router.push('/');
+    }
+  } else {
+    alert("Credenciales incorrectas.");
+  }
 };
 </script>
 
@@ -97,7 +118,7 @@ const iniciarSesion = () => {
 @import url('https://cdn.jsdelivr.net/gh/Os-corona/prograWeb-CSS-Auxiliar@main/styles-log-in.css');
 
 .login-wrapper {
-  min-height: calc(100vh - 80px); /* Restamos un aproximado de lo que mide tu navbar */
+  min-height: calc(100vh - 80px);
   display: flex;
   align-items: center;
   justify-content: center;
