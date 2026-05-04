@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 
 #Django files
-.env
+backend/.env
 venv/
 __pycache__
 *.pyc
