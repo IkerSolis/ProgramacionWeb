@@ -1,5 +1,4 @@
 <script setup>
-// Recibimos un objeto "juego" desde el componente padre
 defineProps({
   juego: {
     type: Object,
@@ -7,7 +6,6 @@ defineProps({
   }
 });
 
-// Avisamos al componente padre que se hizo clic en el carrito
 const emit = defineEmits(['agregar-carrito']);
 
 const agregarAlCarrito = () => {
@@ -16,37 +14,104 @@ const agregarAlCarrito = () => {
 </script>
 
 <template>
-  <div class="product-card position-relative h-100 d-flex flex-column">
+  <div class="game-card position-relative h-100 d-flex flex-column">
+    <div class="card-img-container">
+      <img :src="juego.cover || '/img/placeholder.jpg'" :alt="juego.title" class="card-img">
+    </div>
     
-    <span v-if="juego.descuento > 0" class="position-absolute top-0 end-0 mt-3 me-3 badge rounded-pill px-2 py-1" 
-          style="background-color: var(--green-accent); color: #000; font-weight: 800; font-family: 'Orbitron', sans-serif; z-index: 2; box-shadow: 0 4px 10px rgba(127,255,110,0.4);">
-        -{{ juego.descuento }}%
-    </span>
-    
-    <img :src="juego.imagen" :alt="juego.titulo" class="img-fluid">
-    
-    <div class="mt-3 text-start d-flex flex-column flex-grow-1">
-        <p class="product-name mb-1 fs-5">{{ juego.titulo }}</p>
-        <p class="text-muted mb-3" style="font-size: 0.8rem;">{{ juego.plataforma }}</p>
-        
-        <div class="mt-auto d-flex justify-content-between align-items-center">
-            <div class="d-flex flex-column">
-                <small v-if="juego.descuento > 0" class="text-decoration-line-through text-muted" style="font-size: 0.75rem;">
-                    ${{ juego.precioOriginal }}
-                </small>
-                <span class="fw-bold fs-5" style="color: var(--green-accent); font-family: 'Orbitron', sans-serif;">
-                    ${{ juego.precioFinal }}
-                </span>
-            </div>
-            
-            <button class="nk-btn nk-add p-2" title="Añadir al carrito" @click="agregarAlCarrito">
-                <i class="bi bi-cart-plus fs-5"></i>
-            </button>
+    <div class="card-body mt-2 d-flex flex-column flex-grow-1 text-start">
+      <p class="game-title mb-1 text-truncate" :title="juego.title">{{ juego.title }}</p>
+      <p class="game-genre mb-2 text-truncate">{{ juego.genre || 'Género no definido' }}</p>
+      
+      <div class="platforms mb-2 d-flex flex-wrap gap-1" v-if="juego.plataformas && juego.plataformas.length">
+        <span v-for="plat in juego.plataformas" :key="plat" class="platform-badge">{{ plat }}</span>
+      </div>
+      <div class="platforms mb-2" v-else>
+        <span class="platform-badge" style="opacity:0.5;">Sin keys</span>
+      </div>
+
+      <div class="mt-auto d-flex justify-content-between align-items-end">
+        <div class="d-flex flex-column">
+          <small class="text-muted" style="font-size: 0.7rem;">Desde</small>
+          <span v-if="juego.lowestPrice" class="game-price">${{ parseFloat(juego.lowestPrice).toFixed(2) }}</span>
+          <span v-else class="text-danger fw-bold" style="font-size:0.9rem;">Agotado</span>
         </div>
+        <button class="btn-cart p-2" title="Añadir al carrito" @click="agregarAlCarrito" :disabled="!juego.hasKeys">
+          <i class="bi bi-cart-plus fs-5"></i>
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-
+.game-card {
+  background-color: var(--card-bg, #1a1a2e);
+  border: 1px solid var(--purple-mid, #9d71c8);
+  border-radius: 12px;
+  padding: 0.75rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  border-color: var(--green-accent, #14cb81);
+}
+.card-img-container {
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.game-card:hover .card-img {
+  transform: scale(1.05);
+}
+.game-title {
+  font-weight: 700;
+  color: var(--white-off, #f8f9fa);
+  font-size: 1rem;
+}
+.game-genre {
+  font-size: 0.75rem;
+  color: var(--purple-soft, #c9a0ff);
+}
+.platform-badge {
+  font-size: 0.65rem;
+  background: rgba(157, 113, 200, 0.2);
+  color: var(--white-off);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+.game-price {
+  color: var(--green-accent, #14cb81);
+  font-weight: 800;
+  font-size: 1.1rem;
+  font-family: 'Orbitron', sans-serif;
+}
+.btn-cart {
+  background: rgba(20, 203, 129, 0.1);
+  border: 1px solid var(--green-accent, #14cb81);
+  color: var(--green-accent, #14cb81);
+  border-radius: 8px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-cart:hover:not(:disabled) {
+  background: var(--green-accent, #14cb81);
+  color: #000;
+}
+.btn-cart:disabled {
+  border-color: #555;
+  color: #555;
+  background: transparent;
+  cursor: not-allowed;
+}
 </style>
