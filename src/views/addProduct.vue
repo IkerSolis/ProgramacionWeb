@@ -2,9 +2,11 @@
 import { ref } from 'vue'
 
 const juego = ref({
-  titulo: '',
+  title: '',
+  description: 'Descripción pendiente',
+  genre: 'Por definir',
   plataformas: [],
-  imagen: '',
+  cover: '',
   precioOriginal: '',
   precioFinal: '',
   descuento: 0
@@ -17,9 +19,9 @@ const validarFormulario = () => {
   errores.value = []
   exito.value = false
 
-  if (!juego.value.titulo) errores.value.push("El título es obligatorio")
+  if (!juego.value.title) errores.value.push("El título es obligatorio")
   if (juego.value.plataformas.length === 0) errores.value.push("Debes seleccionar al menos una plataforma")
-  if (!juego.value.imagen) errores.value.push("La imagen es obligatoria")
+  if (!juego.value.cover) errores.value.push("La imagen es obligatoria")
   if (juego.value.precioOriginal === '') errores.value.push("El precio original es obligatorio")
   if (juego.value.precioFinal === '') errores.value.push("El precio final es obligatorio")
   if (juego.value.precioOriginal < 0) errores.value.push("El precio original no puede ser negativo")
@@ -32,32 +34,45 @@ const validarFormulario = () => {
   return errores.value.length === 0
 }
 
-const guardarJuego = () => {
+const guardarJuego = async () => {
   if (!validarFormulario()) return
 
-  const juegos = JSON.parse(localStorage.getItem('juegos')) || []
-  const juegosBase = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
-  const todosLosIds = [...juegosBase.map(j => j.id), ...juegos.map(j => j.id)]
-  const maxId = todosLosIds.length > 0 ? Math.max(...todosLosIds) : 0
-  const nuevoId = maxId + 1
+  const payload = {
+    title: juego.value.title,
+    description: juego.value.description,
+    genre: juego.value.genre,
+    cover: juego.value.cover
+  };
 
-  juegos.push({
-    ...juego.value,
-    id: nuevoId
-  })
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/products/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
 
-  localStorage.setItem('juegos', JSON.stringify(juegos))
-  
-  exito.value = true // Mostramos el mensaje de éxito
+    if (response.ok) {
+      exito.value = true; // Mostramos el mensaje de éxito
 
-  // Limpiar formulario
-  juego.value = {
-    titulo: '', plataformas: [], imagen: '',
-    precioOriginal: '', precioFinal: '', descuento: 0
+      // Limpiar formulario
+      juego.value = {
+        title: '', description: 'Descripción pendiente', genre: 'Por definir', plataformas: [], cover: '',
+        precioOriginal: '', precioFinal: '', descuento: 0
+      };
+      
+      // Ocultamos el mensaje de éxito después de 3 segundos
+      setTimeout(() => exito.value = false, 3000);
+    } else {
+      const errorData = await response.json();
+      console.error("Error al guardar:", errorData);
+      errores.value.push("Error del servidor: Revisa la consola.");
+    }
+  } catch (error) {
+    console.error("Error de red:", error);
+    errores.value.push("No se pudo conectar con el backend (Django).");
   }
-  
-  // Ocultamos el mensaje de éxito después de 3 segundos
-  setTimeout(() => exito.value = false, 3000);
 }
 </script>
 
@@ -96,7 +111,7 @@ const guardarJuego = () => {
           <label class="admin-label">Título del juego</label>
           <div class="admin-input-group">
             <span class="admin-icon"><i class="bi bi-controller"></i></span>
-            <input v-model="juego.titulo" type="text" class="admin-input" placeholder="Ej: Halo Infinite" required>
+            <input v-model="juego.title" type="text" class="admin-input" placeholder="Ej: Halo Infinite" required>
           </div>
         </div>
 
@@ -122,7 +137,7 @@ const guardarJuego = () => {
           <label class="admin-label">URL de la imagen (Portada)</label>
           <div class="admin-input-group">
             <span class="admin-icon"><i class="bi bi-image"></i></span>
-            <input v-model="juego.imagen" type="text" class="admin-input" placeholder="/img/mi-juego.jpg" required>
+            <input v-model="juego.cover" type="text" class="admin-input" placeholder="/img/mi-juego.jpg" required>
           </div>
         </div>
 

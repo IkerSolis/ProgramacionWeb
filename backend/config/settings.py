@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'store',
     'decouple',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -108,6 +109,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Configuración de DRF
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
 #Usar el usuario personalizado
 AUTH_USER_MODEL = 'store.User'
 
@@ -128,3 +139,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# CORS Configuration
+CORS_ALLOW_ALL_ORIGINS = True
