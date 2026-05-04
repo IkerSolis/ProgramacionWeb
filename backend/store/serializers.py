@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Product, KeyCode, Sale, User
+from django.contrib.auth.hashers import make_password
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,14 +10,18 @@ class ProductSerializer(serializers.ModelSerializer):
 class KeyCodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = KeyCode
-        fields = '__all__'
+        fields = ['id', 'product', 'is_used', 'price', 'platform', 'region', 'created_at']
+
+class KeyCodePrivateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = KeyCode
+        fields = ['id', 'product', 'key', 'is_used', 'price', 'platform', 'region']
 
 class SaleSerializer(serializers.ModelSerializer):
+    key_code = KeyCodePrivateSerializer(read_only=True)
     class Meta:
         model = Sale
         fields = '__all__'
-
-from django.contrib.auth.hashers import make_password
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})

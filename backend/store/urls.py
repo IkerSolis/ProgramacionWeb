@@ -6,7 +6,7 @@ from .views import igdb_search
 router = DefaultRouter()
 router.register('products', ProductViewSet)
 router.register('keycodes', KeyCodeViewSet)
-router.register('sales', SaleViewSet)
+router.register('sales', SaleViewSet, basename='sale')
 router.register('users', UserViewSet)
 
 urlpatterns = [

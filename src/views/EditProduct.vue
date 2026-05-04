@@ -1,76 +1,64 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { authHeader } from '../data/estado.js';
 
-const searchQuery = ref('');
-const searchResults = ref([]);
-const isSearching = ref(false);
-const searchError = ref('');
-
-const buscarEnIGDB = async () => {
-  if (!searchQuery.value.trim()) return;
-  isSearching.value = true;
-  searchError.value = '';
-  searchResults.value = [];
-  
-  try {
-    const res = await fetch(`http://127.0.0.1:8000/api/igdb/search/?q=${encodeURIComponent(searchQuery.value)}`, {
-      headers: { ...authHeader() }
-    });
-    if (res.ok) {
-      searchResults.value = await res.json();
-    } else {
-      searchError.value = 'No se encontraron resultados o hubo un error.';
-    }
-  } catch(err) {
-    searchError.value = 'Error al conectar con la búsqueda de IGDB.';
-  } finally {
-    isSearching.value = false;
-  }
-};
-
-const seleccionarJuego = (game) => {
-  juego.value.title = game.name || '';
-  juego.value.description = game.summary || 'Descripción pendiente';
-  juego.value.genre = game.genres && game.genres.length > 0 ? game.genres.map(g => g.name).join(', ') : 'Por definir';
-  
-  if (game.cover && game.cover.url) {
-    let coverUrl = game.cover.url.startsWith('//') ? 'https:' + game.cover.url : game.cover.url;
-    coverUrl = coverUrl.replace('t_thumb', 't_cover_big');
-    juego.value.cover = coverUrl;
-  } else {
-    juego.value.cover = '';
-  }
-  
-  juego.value.igdb_id = game.id || null;
-  searchResults.value = [];
-  searchQuery.value = '';
-};
+const route = useRoute()
+const router = useRouter()
+const productId = route.params.id
 
 const juego = ref({
   title: '',
   description: 'Descripción pendiente',
   genre: 'Por definir',
-  cover: '',
-  igdb_id: null
+  cover: ''
 })
 
-const keys = ref([
-  { key: '', platform: 'PC', region: 'Global', price: 0 }
-])
+const keys = ref([])
+const keysToDelete = ref([])
 
 const plataformasDisponibles = ['PC', 'PlayStation', 'Xbox', 'Nintendo']
 const regionesDisponibles = ['Global', 'MX', 'US', 'EU', 'Asia']
 
+const cargarDatos = async () => {
+  try {
+    const resProd = await fetch(`http://127.0.0.1:8000/api/products/${productId}/`)
+    if (resProd.ok) {
+      const data = await resProd.json()
+      juego.value = {
+        title: data.title,
+        description: data.description,
+        genre: data.genre,
+        cover: data.cover || data.image_url || ''
+      }
+    }
+
+    const resKeys = await fetch(`http://127.0.0.1:8000/api/keycodes/?product=${productId}`, {
+      headers: { ...authHeader() }
+    })
+    if (resKeys.ok) {
+      keys.value = await resKeys.json()
+      // Marcar llaves existentes como no nuevas
+      keys.value.forEach(k => k.isNew = false)
+    }
+  } catch (error) {
+    console.error("Error al cargar datos:", error)
+    errores.value.push("No se pudieron cargar los datos del producto.")
+  }
+}
+
+onMounted(() => {
+  cargarDatos()
+})
+
 const addKey = () => {
-  keys.value.push({ key: '', platform: 'PC', region: 'Global', price: 0 })
+  keys.value.push({ key: '', platform: 'PC', region: 'Global', price: 0, isNew: true })
 }
 
 const removeKey = (index) => {
-  if (keys.value.length > 1) {
-    keys.value.splice(index, 1)
-  } else {
-    alert('Debe haber al menos una llave.')
+  const removed = keys.value.splice(index, 1)[0]
+  if (removed.id) {
+    keysToDelete.value.push(removed.id)
   }
 }
 
@@ -84,10 +72,8 @@ const validarFormulario = () => {
   if (!juego.value.title) errores.value.push("El título es obligatorio")
   if (!juego.value.cover) errores.value.push("La imagen es obligatoria")
   
-  if (keys.value.length === 0) errores.value.push("Debes añadir al menos una llave.")
-  
   keys.value.forEach((k, idx) => {
-    if (!k.key) errores.value.push(`La llave #${idx + 1} no puede estar vacía.`)
+    if (!k.key && k.isNew) errores.value.push(`La nueva llave #${idx + 1} no puede estar vacía.`)
     if (k.price < 0) errores.value.push(`El precio de la llave #${idx + 1} no puede ser negativo.`)
   })
 
@@ -101,13 +87,12 @@ const guardarJuego = async () => {
     title: juego.value.title,
     description: juego.value.description,
     genre: juego.value.genre,
-    cover: juego.value.cover,
-    igdb_id: juego.value.igdb_id
+    cover: juego.value.cover
   };
 
   try {
-    const resProduct = await fetch('http://127.0.0.1:8000/api/products/', {
-      method: 'POST',
+    const resProduct = await fetch(`http://127.0.0.1:8000/api/products/${productId}/`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         ...authHeader()
@@ -116,40 +101,51 @@ const guardarJuego = async () => {
     });
 
     if (resProduct.ok) {
-      const productData = await resProduct.json();
-      const productId = productData.id;
-
-      // Guardar las llaves
-      for (const k of keys.value) {
-        const keyPayload = {
-          product: productId,
-          key: k.key,
-          platform: k.platform,
-          region: k.region,
-          price: k.price,
-          is_used: false
-        };
-        await fetch('http://127.0.0.1:8000/api/keycodes/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            ...authHeader()
-          },
-          body: JSON.stringify(keyPayload)
+      for (const id of keysToDelete.value) {
+        await fetch(`http://127.0.0.1:8000/api/keycodes/${id}/`, {
+          method: 'DELETE',
+          headers: { ...authHeader() }
         });
+      }
+      keysToDelete.value = []
+
+      for (const k of keys.value) {
+        if (k.id) {
+          await fetch(`http://127.0.0.1:8000/api/keycodes/${k.id}/`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              ...authHeader()
+            },
+            body: JSON.stringify({ platform: k.platform, region: k.region, price: k.price, key: k.key })
+          });
+        } else {
+          const keyPayload = {
+            product: productId,
+            key: k.key,
+            platform: k.platform,
+            region: k.region,
+            price: k.price,
+            is_used: false
+          };
+          await fetch(`http://127.0.0.1:8000/api/keycodes/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              ...authHeader()
+            },
+            body: JSON.stringify(keyPayload)
+          });
+        }
       }
 
       exito.value = true;
-
-      // Limpiar formulario
-      juego.value = { title: '', description: 'Descripción pendiente', genre: 'Por definir', cover: '', igdb_id: null };
-      keys.value = [{ key: '', platform: 'PC', region: 'Global', price: 0 }];
-      
-      setTimeout(() => exito.value = false, 3000);
+      setTimeout(() => {
+        exito.value = false;
+        router.push('/panel');
+      }, 2000);
     } else {
-      const errorData = await resProduct.json();
-      console.error("Error al guardar producto:", errorData);
-      errores.value.push("Error del servidor al crear producto.");
+      errores.value.push("Error del servidor al actualizar producto.");
     }
   } catch (error) {
     console.error("Error de red:", error);
@@ -168,9 +164,9 @@ const guardarJuego = async () => {
 
     <div class="admin-card">
       <div class="admin-card-header text-center mb-4">
-        <i class="bi bi-plus-square-dotted fs-1 mb-2 d-block" style="color: var(--green-accent);"></i>
-        <h2 class="mb-0 text-white">Añadir <span style="color: var(--green-accent);">Videojuego</span></h2>
-        <p style="color: var(--purple-soft); font-size: 0.9rem;">Registra un nuevo producto y sus códigos</p>
+        <i class="bi bi-pencil-square fs-1 mb-2 d-block" style="color: var(--green-accent);"></i>
+        <h2 class="mb-0 text-white">Editar <span style="color: var(--green-accent);">Videojuego</span></h2>
+        <p style="color: var(--purple-soft); font-size: 0.9rem;">Actualiza la información y gestiona los códigos</p>
       </div>
 
       <div v-if="errores.length" class="alert alert-danger custom-alert">
@@ -183,47 +179,12 @@ const guardarJuego = async () => {
       </div>
 
       <div v-if="exito" class="alert alert-success custom-alert-success text-center">
-        <i class="bi bi-check-circle-fill me-2"></i> ¡Juego y llaves guardados con éxito!
+        <i class="bi bi-check-circle-fill me-2"></i> ¡Juego y llaves actualizados con éxito!
       </div>
 
       <form @submit.prevent="guardarJuego" novalidate>
 
-        <h5 class="section-subtitle mb-3"><i class="bi bi-search me-2"></i>Buscador IGDB (Opcional)</h5>
-        <div class="mb-4 position-relative">
-          <div class="d-flex gap-2">
-            <div class="admin-input-group flex-grow-1">
-              <span class="admin-icon"><i class="bi bi-search"></i></span>
-              <input v-model="searchQuery" @keydown.enter.prevent="buscarEnIGDB" type="text" class="admin-input" placeholder="Buscar juego en IGDB para autocompletar...">
-            </div>
-            <button type="button" class="btn nk-btn-primary" @click="buscarEnIGDB" :disabled="isSearching">
-              <span v-if="isSearching" class="spinner-border spinner-border-sm me-2"></span>
-              {{ isSearching ? 'Buscando...' : 'Buscar' }}
-            </button>
-          </div>
-          <div v-if="searchError" class="text-danger mt-2 small">{{ searchError }}</div>
-          
-          <!-- Resultados IGDB -->
-          <div v-if="searchResults.length > 0" class="search-results-dropdown shadow">
-            <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom" style="border-color: rgba(255,255,255,0.1) !important;">
-              <span class="text-muted small">Resultados de búsqueda</span>
-              <button type="button" class="btn-close btn-close-white" style="font-size: 0.5rem;" @click="searchResults = []"></button>
-            </div>
-            <div class="list-group list-group-flush">
-              <button type="button" v-for="res in searchResults" :key="res.id" class="list-group-item list-group-item-action search-item" @click="seleccionarJuego(res)">
-                <div class="d-flex align-items-center gap-3">
-                  <img v-if="res.cover" :src="(res.cover.url.startsWith('//') ? 'https:' + res.cover.url : res.cover.url).replace('t_thumb', 't_cover_small')" class="search-img" alt="cover">
-                  <div v-else class="search-img-placeholder"><i class="bi bi-image"></i></div>
-                  <div>
-                    <h6 class="mb-0 text-white" style="text-align: left;">{{ res.name }}</h6>
-                    <small class="text-muted text-start d-block">{{ res.first_release_date ? new Date(res.first_release_date * 1000).getFullYear() : 'Año N/A' }}</small>
-                  </div>
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <h5 class="section-subtitle mb-3 mt-4"><i class="bi bi-info-circle me-2"></i>Información del Producto</h5>
+        <h5 class="section-subtitle mb-3"><i class="bi bi-info-circle me-2"></i>Información del Producto</h5>
         
         <div class="mb-4">
           <label class="admin-label">Título del juego</label>
@@ -265,7 +226,7 @@ const guardarJuego = async () => {
         </h5>
 
         <div v-for="(k, index) in keys" :key="index" class="key-block mb-4 p-3 position-relative">
-          <button v-if="keys.length > 1" type="button" class="btn-close-key" @click="removeKey(index)" title="Eliminar llave">
+          <button type="button" class="btn-close-key" @click="removeKey(index)" title="Eliminar llave">
             <i class="bi bi-x-circle-fill"></i>
           </button>
           
@@ -303,7 +264,7 @@ const guardarJuego = async () => {
         </div>
 
         <button type="submit" class="btn-guardar w-100 mt-4">
-          <i class="bi bi-cloud-arrow-up-fill me-2"></i> Guardar Todo en el Catálogo
+          <i class="bi bi-cloud-arrow-up-fill me-2"></i> Guardar Cambios
         </button>
 
       </form>
@@ -334,12 +295,4 @@ const guardarJuego = async () => {
 .custom-alert-success { background-color: rgba(20, 203, 129, 0.1); border: 1px solid var(--green-accent); color: var(--green-accent); border-radius: 10px; }
 .btn-guardar { background: linear-gradient(135deg, var(--green-accent, #14cb81) 0%, #10a66a 100%); color: #000; border: none; padding: 1rem; border-radius: 10px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
 .btn-guardar:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(20, 203, 129, 0.4); }
-
-.search-results-dropdown { position: absolute; top: 100%; left: 0; right: 0; z-index: 1000; background: var(--purple-dark, #2a1b3d); border: 1px solid var(--green-accent); border-radius: 8px; margin-top: 0.5rem; max-height: 350px; overflow-y: auto; }
-.search-item { background: transparent; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--white-off); transition: background 0.2s; padding: 0.8rem 1rem; border-radius: 0; }
-.search-item:hover { background: rgba(20, 203, 129, 0.1); color: var(--green-accent); }
-.search-img { width: 40px; height: 55px; object-fit: cover; border-radius: 4px; }
-.search-img-placeholder { width: 40px; height: 55px; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; border-radius: 4px; color: #555; }
-.nk-btn-primary { background: linear-gradient(135deg, var(--green-accent) 0%, #10a66a 100%); color: #000; font-weight: 700; border: none; border-radius: 8px; padding: 0.8rem 1.5rem; transition: all 0.3s ease; }
-.nk-btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(20, 203, 129, 0.4); color: #000; }
 </style>

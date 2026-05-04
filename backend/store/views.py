@@ -42,15 +42,35 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 class KeyCodeViewSet(viewsets.ModelViewSet):
     queryset = KeyCode.objects.all()
-    serializer_class = KeyCodeSerializer
+
+    def get_serializer_class(self):
+        if self.request.user and self.request.user.is_staff:
+            from .serializers import KeyCodePrivateSerializer
+            return KeyCodePrivateSerializer
+        from .serializers import KeyCodeSerializer
+        return KeyCodeSerializer
+
+    
+    def get_queryset(self):
+        queryset = KeyCode.objects.all()
+        product_id = self.request.query_params.get('product')
+        if product_id is not None:
+            queryset = queryset.filter(product_id=product_id)
+        return queryset
+
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
             return [AllowAny()]
         return [IsAdminUser()]
 
 class SaleViewSet(viewsets.ModelViewSet):
-    queryset = Sale.objects.all()
     serializer_class = SaleSerializer
+
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return Sale.objects.all()
+        return Sale.objects.filter(user=self.request.user)
+
     def get_permissions(self):
         if self.action == 'create':
             return [IsAuthenticated()]
