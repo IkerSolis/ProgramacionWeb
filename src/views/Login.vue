@@ -1,12 +1,12 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { cuentasPrueba } from '../data/users.js';
-import { usuarioActual } from '../data/estado.js';
+import { usuarioActual, tokenActual } from '../data/estado.js';
 
 // Variables reactivas para el formulario
-const email = ref('');
+const email = ref(''); // Username or email based on backend expectations, usually username, but custom token view uses username field default. Let's use username for drf or send both
 const password = ref('');
+const errorMsg = ref('');
 
 const router = useRouter();
 
@@ -17,24 +17,48 @@ const togglePassword = () => {
 };
 
 // Función que se ejecutará al enviar el formulario
-const iniciarSesion = () => {
-  // Buscamos si existe un usuario con ese correo y contraseña
-  const usuarioEncontrado = cuentasPrueba.find(u => 
-    u.email === email.value && u.password === password.value
-  );
+const iniciarSesion = async () => {
+  errorMsg.value = '';
+  try {
+    const res = await fetch('http://localhost:8000/api/login/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: email.value, // DRF expects 'username' by default, if they type email we will try to auth, but DRF defaults to username. We pass the input as username.
+        password: password.value
+      })
+    });
 
-  if (usuarioEncontrado) {
-    localStorage.setItem('usuarioNexus', JSON.stringify(usuarioEncontrado));
-    
-    usuarioActual.value = usuarioEncontrado;
-    
-    if (usuarioActual.value.role === 'admin') {
-      router.push('/panel');
+    if (res.ok) {
+      const data = await res.json();
+      
+      // Guardar token y datos
+      localStorage.setItem('tokenNexus', data.token);
+      tokenActual.value = data.token;
+
+      const usuarioEncontrado = {
+        id: data.id,
+        username: data.username,
+        email: data.email,
+        role: data.is_staff ? 'admin' : 'user'
+      };
+
+      localStorage.setItem('usuarioNexus', JSON.stringify(usuarioEncontrado));
+      usuarioActual.value = usuarioEncontrado;
+      
+      if (usuarioEncontrado.role === 'admin') {
+        router.push('/panel');
+      } else {
+        router.push('/');
+      }
     } else {
-      router.push('/');
+      errorMsg.value = "Credenciales incorrectas.";
     }
-  } else {
-    alert("Credenciales incorrectas.");
+  } catch (error) {
+    console.error("Error conectando con la API:", error);
+    errorMsg.value = "Error de conexión con el servidor.";
   }
 };
 </script>
@@ -54,13 +78,17 @@ const iniciarSesion = () => {
 
       <form novalidate @submit.prevent="iniciarSesion">
 
+        <div v-if="errorMsg" class="alert alert-danger" role="alert" style="font-size: 0.9rem; padding: 0.5rem;">
+          {{ errorMsg }}
+        </div>
+
         <div class="mb-3">
-          <label class="login-label" for="email">Correo electrónico</label>
+          <label class="login-label" for="email">Usuario o Correo</label>
           <input
             id="email"
-            type="email"
+            type="text"
             class="login-input"
-            placeholder="tu@correo.com"
+            placeholder="Tu usuario o correo"
             autocomplete="email"
             v-model="email"
           />

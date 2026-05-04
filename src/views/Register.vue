@@ -1,5 +1,10 @@
 <script setup>
 import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const errorMsg = ref('');
+const successMsg = ref('');
 
 const form = ref({
   username: '',
@@ -41,12 +46,43 @@ const textoSeguridad = computed(() => {
   }
 });
 
-const registrarCuenta = () => {
+const registrarCuenta = async () => {
+  errorMsg.value = '';
+  successMsg.value = '';
+
   if (form.value.password !== form.value.passwordConfirm) {
-    alert("Las contraseñas no coinciden. Intenta de nuevo.");
+    errorMsg.value = "Las contraseñas no coinciden. Intenta de nuevo.";
     return;
   }
-  console.log('Enviando datos de registro:', form.value);
+  
+  try {
+    const res = await fetch('http://localhost:8000/api/users/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: form.value.username,
+        email: form.value.email,
+        password: form.value.password,
+        first_name: form.value.firstName,
+        last_name: form.value.lastName
+      })
+    });
+
+    if (res.ok) {
+      successMsg.value = "¡Cuenta creada exitosamente! Redirigiendo a Login...";
+      setTimeout(() => {
+        router.push('/login');
+      }, 2000);
+    } else {
+      const data = await res.json();
+      errorMsg.value = data.username ? "Ese nombre de usuario ya existe." : "Error al registrar la cuenta. Revisa los datos.";
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    errorMsg.value = "Error conectando con el servidor.";
+  }
 };
 </script>
 
@@ -64,6 +100,13 @@ const registrarCuenta = () => {
       <p class="login-title text-center">Crear Cuenta</p>
 
       <form novalidate @submit.prevent="registrarCuenta">
+
+        <div v-if="errorMsg" class="alert alert-danger" role="alert" style="font-size: 0.9rem; padding: 0.5rem;">
+          {{ errorMsg }}
+        </div>
+        <div v-if="successMsg" class="alert alert-success" role="alert" style="font-size: 0.9rem; padding: 0.5rem;">
+          {{ successMsg }}
+        </div>
 
         <div class="mb-3">
           <label class="login-label" for="username">Nombre de usuario</label>
