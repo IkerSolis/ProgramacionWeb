@@ -23,3 +23,19 @@ def search_games(query):
         data=f'search "{query}"; fields name,summary,cover.url,genres.name,first_release_date; limit 10;'
     )
     return response.json()
+
+def get_game_images(igdb_id):
+    token = get_twitch_token()
+    response = requests.post(
+        'https://api.igdb.com/v4/screenshots',
+        headers={
+            'Client-ID': CLIENT_ID,
+            'Authorization': f'Bearer {token}',
+        },
+        data=f'where game = {igdb_id}; fields url; limit 6;'
+    )
+    # The igdb urls come as t_thumb. We replace with t_screenshot_big for full size
+    try:
+        return [img['url'].replace('t_thumb', 't_screenshot_big') for img in response.json()]
+    except Exception:
+        return []

@@ -17,10 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from store.views import CustomAuthToken
+from store.views import custom_login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('store.urls')),
-    path('api/login/', CustomAuthToken.as_view()),
+    path('api/login/', custom_login),
 ]

@@ -553,4 +553,8 @@ button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
+
+.text-muted, .text-secondary {
+  color: var(--purple-soft, #c9a0ff) !important;
+}
 </style>

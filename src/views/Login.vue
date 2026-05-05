@@ -4,8 +4,9 @@ import { useRouter } from 'vue-router';
 import { usuarioActual, tokenActual } from '../data/estado.js';
 
 // Variables reactivas para el formulario
-const email = ref(''); // Username or email based on backend expectations, usually username, but custom token view uses username field default. Let's use username for drf or send both
+const email = ref('');
 const password = ref('');
+const rememberMe = ref(false);
 const errorMsg = ref('');
 
 const router = useRouter();
@@ -26,26 +27,35 @@ const iniciarSesion = async () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        username: email.value, // DRF expects 'username' by default, if they type email we will try to auth, but DRF defaults to username. We pass the input as username.
-        password: password.value
+        username: email.value,
+        password: password.value,
+        remember_me: rememberMe.value
       })
     });
 
     if (res.ok) {
       const data = await res.json();
       
-      // Guardar token y datos
-      localStorage.setItem('tokenNexus', data.token);
-      tokenActual.value = data.token;
+      // Limpiar ambas fuentes de almacenamiento primero por seguridad
+      localStorage.removeItem('tokenNexus');
+      localStorage.removeItem('usuarioNexus');
+      sessionStorage.removeItem('tokenNexus');
+      sessionStorage.removeItem('usuarioNexus');
 
       const usuarioEncontrado = {
         id: data.id,
         username: data.username,
         email: data.email,
-        role: data.is_staff ? 'admin' : 'user'
+        role: data.is_staff ? 'admin' : 'user',
+        is_staff: data.is_staff
       };
 
-      localStorage.setItem('usuarioNexus', JSON.stringify(usuarioEncontrado));
+      // Guardar token y datos según el check de "Recuérdame"
+      const storage = rememberMe.value ? localStorage : sessionStorage;
+      storage.setItem('tokenNexus', data.token);
+      storage.setItem('usuarioNexus', JSON.stringify(usuarioEncontrado));
+      
+      tokenActual.value = data.token;
       usuarioActual.value = usuarioEncontrado;
       
       if (usuarioEncontrado.role === 'admin') {
@@ -113,7 +123,7 @@ const iniciarSesion = async () => {
 
         <div class="d-flex justify-content-between align-items-center mb-4">
           <label class="login-check">
-            <input type="checkbox"/> Recuérdame
+            <input type="checkbox" v-model="rememberMe"/> Recuérdame
           </label>
           <a href="#" class="login-link">¿Olvidaste tu contraseña?</a>
         </div>

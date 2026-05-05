@@ -1,5 +1,7 @@
 <script setup>
-defineProps({
+import { useRouter } from 'vue-router';
+
+const props = defineProps({
   juego: {
     type: Object,
     required: true
@@ -7,14 +9,19 @@ defineProps({
 });
 
 const emit = defineEmits(['agregar-carrito']);
+const router = useRouter();
 
 const agregarAlCarrito = () => {
   emit('agregar-carrito');
 };
+
+const irAlDetalle = () => {
+  router.push({ name: 'ProductDetail', params: { id: props.juego.id } });
+};
 </script>
 
 <template>
-  <div class="game-card position-relative h-100 d-flex flex-column">
+  <div class="game-card position-relative h-100 d-flex flex-column" @click="irAlDetalle" style="cursor: pointer;">
     <div class="card-img-container">
       <img :src="juego.cover || '/img/placeholder.jpg'" :alt="juego.title" class="card-img">
     </div>
@@ -36,7 +43,7 @@ const agregarAlCarrito = () => {
           <span v-if="juego.lowestPrice" class="game-price">${{ parseFloat(juego.lowestPrice).toFixed(2) }}</span>
           <span v-else class="text-danger fw-bold" style="font-size:0.9rem;">Agotado</span>
         </div>
-        <button class="btn-cart p-2" title="Añadir al carrito" @click="agregarAlCarrito" :disabled="!juego.hasKeys">
+        <button class="btn-cart p-2" title="Añadir al carrito" @click.stop="agregarAlCarrito" :disabled="!juego.hasKeys">
           <i class="bi bi-cart-plus fs-5"></i>
         </button>
       </div>
@@ -113,5 +120,9 @@ const agregarAlCarrito = () => {
   color: #555;
   background: transparent;
   cursor: not-allowed;
+}
+
+.text-muted {
+  color: var(--purple-soft, #c9a0ff) !important;
 }
 </style>

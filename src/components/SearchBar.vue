@@ -86,7 +86,7 @@ const ejecutarBusqueda = () => {
 
 <style scoped>
 .search-main-input::placeholder, .search-price::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.7);
 }
 .search-select {
   cursor: pointer;
@@ -116,5 +116,9 @@ input[type=number]::-webkit-outer-spin-button {
 .search-action-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(20, 203, 129, 0.4);
+}
+
+.text-muted {
+  color: var(--purple-soft, #c9a0ff) !important;
 }
 </style>

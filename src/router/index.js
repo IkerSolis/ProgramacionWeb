@@ -13,6 +13,7 @@ const router = createRouter({
   routes: [
     { path: '/', name: 'home', component: HomePage },
     { path: '/catalogo', name: 'catalogo', component: Catalog },
+    { path: '/product/:id', name: 'ProductDetail', component: () => import('../views/ProductDetail.vue') },
     { path: '/login', name: 'login', component: Login },
     { path: '/registro', name: 'registro', component: Register },
     { 

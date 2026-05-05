@@ -4,10 +4,10 @@ from django.urls import path
 from .views import igdb_search
 
 router = DefaultRouter()
-router.register('products', ProductViewSet)
-router.register('keycodes', KeyCodeViewSet)
+router.register('products', ProductViewSet, basename='product')
+router.register('keycodes', KeyCodeViewSet, basename='keycode')
 router.register('sales', SaleViewSet, basename='sale')
-router.register('users', UserViewSet)
+router.register('users', UserViewSet, basename='user')
 
 urlpatterns = [
     *router.urls,
