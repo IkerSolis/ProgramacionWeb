@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-// import { useCartStore } from '../stores/cart'; // assuming there is a pinia store, otherwise we just console.log for now
+import { useCartStore } from '../stores/cart.js';
+import { usuarioActual } from '../data/estado.js';
 
 const route = useRoute();
 const router = useRouter();
@@ -12,6 +13,7 @@ const images = ref([]);
 const keys = ref([]);
 const activeImage = ref(0);
 const loading = ref(true);
+const cartStore = useCartStore();
 
 const loadData = async () => {
   try {
@@ -62,14 +64,25 @@ const setActiveImage = (index) => {
 };
 
 const agregarAlCarrito = (key) => {
-  console.log("Agregando al carrito:", {
+  if (!usuarioActual.value) {
+    alert("Inicia sesión para poder comprar.");
+    router.push('/login');
+    return;
+  }
+  if (usuarioActual.value.is_staff) {
+    alert("Los administradores no pueden hacer compras.");
+    return;
+  }
+  
+  cartStore.addItem({
     keyId: key.id,
     productTitle: product.value.title,
     platform: key.platform,
     region: key.region,
     price: key.price
   });
-  alert(`Añadido al carrito: ${product.value.title} - ${key.platform} (${key.region})`);
+  
+  // Opcional: mostrar una notificación rápida en vez de alert
 };
 
 onMounted(() => {
@@ -153,8 +166,12 @@ onMounted(() => {
                 </div>
                 
                 <div class="d-grid mt-3">
-                  <button class="btn nk-btn-buy" @click="agregarAlCarrito(key)">
-                    <i class="bi bi-cart-plus me-2"></i> Añadir al carrito
+                  <button class="btn nk-btn-buy" 
+                    @click="agregarAlCarrito(key)"
+                    :disabled="cartStore.items.some(i => i.keyId === key.id) || (usuarioActual && usuarioActual.is_staff)"
+                    :title="usuarioActual?.is_staff ? 'Administradores no compran' : ''">
+                    <i class="bi bi-cart-plus me-2"></i> 
+                    {{ cartStore.items.some(i => i.keyId === key.id) ? 'En Carrito' : 'Añadir al carrito' }}
                   </button>
                 </div>
               </div>

@@ -1,5 +1,8 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 // 1. Definimos los datos de cada diapositiva (slide)
 const slides = ref([
@@ -62,6 +65,14 @@ const reiniciarTemporizador = () => {
 // Arrancamos el temporizador cuando el componente se carga
 onMounted(() => {
   iniciarTemporizador();
+  
+  if (route.hash === '#mision') irASlide(1);
+  if (route.hash === '#vision') irASlide(2);
+});
+
+watch(() => route.hash, (newHash) => {
+  if (newHash === '#mision') irASlide(1);
+  if (newHash === '#vision') irASlide(2);
 });
 
 // Lo limpiamos si el usuario se va a otra página (para no consumir memoria)
@@ -71,8 +82,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section class="home-top carousel-container position-relative">
-    <div class="container relative-wrapper">
+  <section id="hero-carousel" class="home-top carousel-container position-relative">
+    <div class="container relative-wrapper" id="mision" >
       
       <transition name="fade-slide" mode="out-in">
         

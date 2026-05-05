@@ -31,8 +31,8 @@ defineProps({
         
         <div class="col-4 col-md-4">
           <p class="footer-heading">Legal</p>
-          <a href="/mision" class="footer-link">Misión</a>
-          <a href="/vision" class="footer-link">Visión</a>
+          <router-link to="/#mision" class="footer-link">Misión</router-link>
+          <router-link to="/#vision" class="footer-link">Visión</router-link>
           <a href="/terminos" class="footer-link">Términos</a>
         </div>
         

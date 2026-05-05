@@ -2,9 +2,12 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import GameCard from '../components/GameCard.vue';
+import { useCartStore } from '../stores/cart.js';
+import { usuarioActual } from '../data/estado.js';
 
 const route = useRoute();
 const router = useRouter();
+const cartStore = useCartStore();
 
 const productos = ref([]);
 const keycodes = ref([]);
@@ -124,7 +127,29 @@ const nextPg = () => { if (currentPage.value < totalPages.value) currentPage.val
 const prevPg = () => { if (currentPage.value > 1) currentPage.value--; }
 
 const sumarAlCarrito = (juego) => {
-    console.log(`Añadiste ${juego.title} al carrito desde el catálogo`);
+  if (!usuarioActual.value) {
+    alert("Inicia sesión para poder comprar.");
+    router.push('/login');
+    return;
+  }
+  if (usuarioActual.value.is_staff) {
+    alert("Los administradores no pueden hacer compras.");
+    return;
+  }
+
+  // Buscar la llave más barata disponible de este juego
+  const keysDelProd = keycodes.value.filter(k => k.product === juego.id && !k.is_used);
+  if (keysDelProd.length === 0) return;
+  
+  const cheapestKey = keysDelProd.reduce((prev, curr) => parseFloat(curr.price) < parseFloat(prev.price) ? curr : prev);
+
+  cartStore.addItem({
+    keyId: cheapestKey.id,
+    productTitle: juego.title,
+    platform: cheapestKey.platform,
+    region: cheapestKey.region,
+    price: cheapestKey.price
+  });
 };
 </script>
 
