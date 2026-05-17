@@ -14,7 +14,7 @@ const buscarEnIGDB = async () => {
   searchResults.value = [];
   
   try {
-    const res = await fetch(`http://127.0.0.1:8000/api/igdb/search/?q=${encodeURIComponent(searchQuery.value)}`, {
+    const res = await fetch(`/api/igdb/search/?q=${encodeURIComponent(searchQuery.value)}`, {
       headers: { ...authHeader() }
     });
     if (res.ok) {
@@ -106,7 +106,7 @@ const guardarJuego = async () => {
   };
 
   try {
-    const resProduct = await fetch('http://127.0.0.1:8000/api/products/', {
+    const resProduct = await fetch('/api/products/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ const guardarJuego = async () => {
           price: k.price,
           is_used: false
         };
-        await fetch('http://127.0.0.1:8000/api/keycodes/', {
+        await fetch('/api/keycodes/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

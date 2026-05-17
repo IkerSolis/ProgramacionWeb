@@ -35,8 +35,8 @@ watch([filterMinPrice, filterMaxPrice, filterPlatforms, filterRegion], () => {
 
 const cargarDatos = async () => {
   try {
-    const resProds = await fetch('http://127.0.0.1:8000/api/products/');
-    const resKeys = await fetch('http://127.0.0.1:8000/api/keycodes/');
+    const resProds = await fetch('/api/products/');
+    const resKeys = await fetch('/api/keycodes/');
     
     if (resProds.ok && resKeys.ok) {
       productos.value = await resProds.json();

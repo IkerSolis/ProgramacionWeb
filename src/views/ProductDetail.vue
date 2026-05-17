@@ -18,9 +18,9 @@ const cartStore = useCartStore();
 const loadData = async () => {
   try {
     const [resProd, resImgs, resKeys] = await Promise.all([
-      fetch(`http://localhost:8000/api/products/${productId}/`),
-      fetch(`http://localhost:8000/api/products/${productId}/images/`),
-      fetch(`http://localhost:8000/api/keycodes/?product=${productId}&is_used=false`)
+      fetch(`/api/products/${productId}/`),
+      fetch(`/api/products/${productId}/images/`),
+      fetch(`/api/keycodes/?product=${productId}&is_used=false`)
     ]);
 
     if (resProd.ok) {

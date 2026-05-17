@@ -22,7 +22,7 @@ const regionesDisponibles = ['Global', 'MX', 'US', 'EU', 'Asia']
 
 const cargarDatos = async () => {
   try {
-    const resProd = await fetch(`http://127.0.0.1:8000/api/products/${productId}/`)
+    const resProd = await fetch(`/api/products/${productId}/`)
     if (resProd.ok) {
       const data = await resProd.json()
       juego.value = {
@@ -33,7 +33,7 @@ const cargarDatos = async () => {
       }
     }
 
-    const resKeys = await fetch(`http://127.0.0.1:8000/api/keycodes/?product=${productId}`, {
+    const resKeys = await fetch(`/api/keycodes/?product=${productId}`, {
       headers: { ...authHeader() }
     })
     if (resKeys.ok) {
@@ -91,7 +91,7 @@ const guardarJuego = async () => {
   };
 
   try {
-    const resProduct = await fetch(`http://127.0.0.1:8000/api/products/${productId}/`, {
+    const resProduct = await fetch(`/api/products/${productId}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ const guardarJuego = async () => {
 
     if (resProduct.ok) {
       for (const id of keysToDelete.value) {
-        await fetch(`http://127.0.0.1:8000/api/keycodes/${id}/`, {
+        await fetch(`/api/keycodes/${id}/`, {
           method: 'DELETE',
           headers: { ...authHeader() }
         });
@@ -111,7 +111,7 @@ const guardarJuego = async () => {
 
       for (const k of keys.value) {
         if (k.id) {
-          await fetch(`http://127.0.0.1:8000/api/keycodes/${k.id}/`, {
+          await fetch(`/api/keycodes/${k.id}/`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ const guardarJuego = async () => {
             price: k.price,
             is_used: false
           };
-          await fetch(`http://127.0.0.1:8000/api/keycodes/`, {
+          await fetch(`/api/keycodes/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

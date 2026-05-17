@@ -21,7 +21,7 @@ const completePurchase = async () => {
     isLoading.value = true;
     try {
         const salesPromises = cartStore.items.map(item => {
-            return fetch('http://localhost:8000/api/sales/', {
+            return fetch('/api/sales/', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${tokenActual.value}`,

@@ -10,7 +10,15 @@ export default defineConfig({
     basicSsl() // Esto activa HTTPS automáticamente
   ],
   server: {
-    https: true // Asegura que el servidor arranque en modo seguro
+    host: true, // Permite conexiones desde la red local
+    https: true, // Asegura que el servidor arranque en modo seguro
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8000', // Redirige las peticiones /api al backend local
+        changeOrigin: true,
+        secure: false
+      }
+    }
   }
 })
 

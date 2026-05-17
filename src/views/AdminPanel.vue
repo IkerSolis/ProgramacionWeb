@@ -24,17 +24,17 @@ const paginatedProductos = computed(() => {
 const cargarDatos = async () => {
   try {
     // Cargar Usuarios
-    const resUsers = await fetch('http://localhost:8000/api/users/', {
+    const resUsers = await fetch('/api/users/', {
       headers: { ...authHeader() }
     });
     if (resUsers.ok) usuarios.value = await resUsers.json();
 
     // Cargar Productos
-    const resProd = await fetch('http://localhost:8000/api/products/');
+    const resProd = await fetch('/api/products/');
     if (resProd.ok) productos.value = await resProd.json();
 
     // Cargar KeyCodes
-    const resKeys = await fetch('http://localhost:8000/api/keycodes/');
+    const resKeys = await fetch('/api/keycodes/');
     if (resKeys.ok) keycodes.value = await resKeys.json();
 
   } catch (err) {
@@ -53,7 +53,7 @@ const eliminarUsuario = async (id) => {
   }
   if(!confirm("¿Estás seguro de eliminar este usuario?")) return;
   try {
-    const res = await fetch(`http://localhost:8000/api/users/${id}/`, {
+    const res = await fetch(`/api/users/${id}/`, {
       method: 'DELETE',
       headers: { ...authHeader() }
     });
@@ -73,7 +73,7 @@ const hacerAdmin = async (id, isStaffActual) => {
     return;
   }
   try {
-    const res = await fetch(`http://localhost:8000/api/users/${id}/`, {
+    const res = await fetch(`/api/users/${id}/`, {
       method: 'PATCH',
       headers: { 
         'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ const editarProducto = (id) => {
 const eliminarProducto = async (id) => {
   if(!confirm("¿Estás seguro de eliminar este producto y todas sus llaves?")) return;
   try {
-    const res = await fetch(`http://localhost:8000/api/products/${id}/`, {
+    const res = await fetch(`/api/products/${id}/`, {
       method: 'DELETE',
       headers: { ...authHeader() }
     });
@@ -116,7 +116,7 @@ const eliminarProducto = async (id) => {
 const eliminarClave = async (id) => {
   if(!confirm("¿Estás seguro de eliminar esta llave?")) return;
   try {
-    const res = await fetch(`http://localhost:8000/api/keycodes/${id}/`, {
+    const res = await fetch(`/api/keycodes/${id}/`, {
       method: 'DELETE',
       headers: { ...authHeader() }
     });
