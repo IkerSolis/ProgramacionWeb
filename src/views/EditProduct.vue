@@ -1,4 +1,5 @@
 <script setup>
+import { API_BASE_URL } from '../api/config.js';
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { authHeader } from '../data/estado.js';
@@ -22,7 +23,7 @@ const regionesDisponibles = ['Global', 'MX', 'US', 'EU', 'Asia']
 
 const cargarDatos = async () => {
   try {
-    const resProd = await fetch(`/api/products/${productId}/`)
+    const resProd = await fetch(`${API_BASE_URL}/api/products/${productId}/`)
     if (resProd.ok) {
       const data = await resProd.json()
       juego.value = {
@@ -33,7 +34,7 @@ const cargarDatos = async () => {
       }
     }
 
-    const resKeys = await fetch(`/api/keycodes/?product=${productId}`, {
+    const resKeys = await fetch(`${API_BASE_URL}/api/keycodes/?product=${productId}`, {
       headers: { ...authHeader() }
     })
     if (resKeys.ok) {
@@ -91,7 +92,7 @@ const guardarJuego = async () => {
   };
 
   try {
-    const resProduct = await fetch(`/api/products/${productId}/`, {
+    const resProduct = await fetch(`${API_BASE_URL}/api/products/${productId}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -102,7 +103,7 @@ const guardarJuego = async () => {
 
     if (resProduct.ok) {
       for (const id of keysToDelete.value) {
-        await fetch(`/api/keycodes/${id}/`, {
+        await fetch(`${API_BASE_URL}/api/keycodes/${id}/`, {
           method: 'DELETE',
           headers: { ...authHeader() }
         });
@@ -111,7 +112,7 @@ const guardarJuego = async () => {
 
       for (const k of keys.value) {
         if (k.id) {
-          await fetch(`/api/keycodes/${k.id}/`, {
+          await fetch(`${API_BASE_URL}/api/keycodes/${k.id}/`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -128,7 +129,7 @@ const guardarJuego = async () => {
             price: k.price,
             is_used: false
           };
-          await fetch(`/api/keycodes/`, {
+          await fetch(`${API_BASE_URL}/api/keycodes/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

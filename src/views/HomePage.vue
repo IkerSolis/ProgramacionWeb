@@ -1,4 +1,5 @@
 <script setup>
+import { API_BASE_URL } from '../api/config.js';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import SearchBar from '../components/SearchBar.vue';
@@ -12,8 +13,8 @@ const cargando = ref(true);
 
 onMounted(async () => {
   try {
-    const resProds = await fetch('/api/products/');
-    const resKeys = await fetch('/api/keycodes/');
+    const resProds = await fetch(`${API_BASE_URL}/api/products/`);
+    const resKeys = await fetch(`${API_BASE_URL}/api/keycodes/`);
     
     if (resProds.ok && resKeys.ok) {
       const productosData = await resProds.json();

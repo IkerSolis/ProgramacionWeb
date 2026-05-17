@@ -1,4 +1,5 @@
 <script setup>
+import { API_BASE_URL } from '../api/config.js';
 import { ref } from 'vue'
 import { authHeader } from '../data/estado.js';
 
@@ -14,7 +15,7 @@ const buscarEnIGDB = async () => {
   searchResults.value = [];
   
   try {
-    const res = await fetch(`/api/igdb/search/?q=${encodeURIComponent(searchQuery.value)}`, {
+    const res = await fetch(`${API_BASE_URL}/api/igdb/search/?q=${encodeURIComponent(searchQuery.value)}`, {
       headers: { ...authHeader() }
     });
     if (res.ok) {
@@ -106,7 +107,7 @@ const guardarJuego = async () => {
   };
 
   try {
-    const resProduct = await fetch('/api/products/', {
+    const resProduct = await fetch(`${API_BASE_URL}/api/products/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -129,7 +130,7 @@ const guardarJuego = async () => {
           price: k.price,
           is_used: false
         };
-        await fetch('/api/keycodes/', {
+        await fetch(`${API_BASE_URL}/api/keycodes/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

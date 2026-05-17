@@ -1,4 +1,5 @@
 <script setup>
+import { API_BASE_URL } from '../api/config.js';
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -56,7 +57,7 @@ const registrarCuenta = async () => {
   }
   
   try {
-    const res = await fetch('/api/users/', {
+    const res = await fetch(`${API_BASE_URL}/api/users/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

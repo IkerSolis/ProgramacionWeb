@@ -1,4 +1,5 @@
 <script setup>
+import { API_BASE_URL } from '../api/config.js';
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useCartStore } from '../stores/cart.js';
@@ -18,9 +19,9 @@ const cartStore = useCartStore();
 const loadData = async () => {
   try {
     const [resProd, resImgs, resKeys] = await Promise.all([
-      fetch(`/api/products/${productId}/`),
-      fetch(`/api/products/${productId}/images/`),
-      fetch(`/api/keycodes/?product=${productId}&is_used=false`)
+      fetch(`${API_BASE_URL}/api/products/${productId}/`),
+      fetch(`${API_BASE_URL}/api/products/${productId}/images/`),
+      fetch(`${API_BASE_URL}/api/keycodes/?product=${productId}&is_used=false`)
     ]);
 
     if (resProd.ok) {

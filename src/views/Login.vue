@@ -1,4 +1,5 @@
 <script setup>
+import { API_BASE_URL } from '../api/config.js';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { usuarioActual, tokenActual } from '../data/estado.js';
@@ -21,7 +22,7 @@ const togglePassword = () => {
 const iniciarSesion = async () => {
   errorMsg.value = '';
   try {
-    const res = await fetch('/api/login/', {
+    const res = await fetch(`${API_BASE_URL}/api/login/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

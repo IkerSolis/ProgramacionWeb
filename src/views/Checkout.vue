@@ -1,4 +1,5 @@
 <script setup>
+import { API_BASE_URL } from '../api/config.js';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCartStore } from '../stores/cart';
@@ -21,7 +22,7 @@ const completePurchase = async () => {
     isLoading.value = true;
     try {
         const salesPromises = cartStore.items.map(item => {
-            return fetch('/api/sales/', {
+            return fetch(`${API_BASE_URL}/api/sales/`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${tokenActual.value}`,
