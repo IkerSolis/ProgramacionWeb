@@ -12,7 +12,7 @@ const slides = ref([
     badge: 'Tu tienda de keys definitiva',
     titulo: 'Expande tu catálogo<br><span class="accent">de videojuegos</span>',
     texto: 'Miles de títulos para todas las plataformas. Desde indie hasta AAA, encuentra el juego perfecto para ti.',
-    imagen: '/img/collage.webp'
+    imagen: '/img/collage.png'
   },
   {
     id: 1,

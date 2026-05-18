@@ -41,7 +41,7 @@ const cerrarSesion = () => {
     <div class="container-fluid px-4">
         
         <router-link class="navbar-brand d-flex align-items-center" to="/" style="color: var(--white-off);" @click="cerrarMenu">
-            <img src="/img/logo.jpeg" alt="Logo" style="width: 60px; height: auto;" class="me-2">
+            <img src="https://nexuskey-media-imagenes.s3.us-east-2.amazonaws.com/img/logo.jpeg" alt="Logo" style="width: 60px; height: auto;" class="me-2">
             Nexus<span>Key</span>
         </router-link>
 
