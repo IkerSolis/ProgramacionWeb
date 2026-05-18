@@ -1,0 +1,680 @@
+[
+{
+    "model": "store.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$8m1ui1qJtHicXjHe2QHFgW$As5t8EaATrPcBP+RXas7dw5TcZ8YCydu2PQ64t+RaO4=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "ikersol",
+        "first_name": "",
+        "last_name": "",
+        "email": "iker18@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-05-04T21:40:00.556Z",
+        "phone": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "store.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$5UbMM4Wprs7qKVZjsrLnE7$Xj1tH22cyVuLyLXZ9b8CFNVJzcSJMmB+AByB4rnQ+DU=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "GamerPrueba",
+        "first_name": "Jose",
+        "last_name": "Perez",
+        "email": "prueba123@prueba.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-04T21:56:39.796Z",
+        "phone": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "store.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$YJn8DDbjYEY7c7oht3x6Mt$hm11KbHe+bwke2aBHb04oalzgPqFap3k/k3vukCmiZU=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "pollis",
+        "first_name": "Sebastian",
+        "last_name": "Solis",
+        "email": "sebastian.solis.2e@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-10T14:41:30.275Z",
+        "phone": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "store.product",
+    "pk": "08bebdaf-7faa-47d9-a491-940bfe30af8b",
+    "fields": {
+        "igdb_id": 14647,
+        "title": "Bloodborne: The Old Hunters",
+        "description": "The Old Hunters is the first Expansion for Bloodborne. It features all-new locations, bosses, weapons, and armour.\n\nSet in a nightmare world where hunters from the past are trapped forever, explore brand new stages full of dangers, rewards and deadly beasts to overcome. YouÆll find multiple new outfits and weapons to add to your arsenal as well as additional magic to wield and add more variety to your combat strategy.\n\nWith new story details, learn the tale of hunters who once made Yharnam their hunting grounds, meet new NPCs, and discover another side of the history and world of Bloodborne.",
+        "genre": "Role-playing (RPG), Adventure",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob99k.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-06T17:49:42.460Z",
+        "updated_at": "2026-05-06T17:49:42.460Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "15f6798f-0fd0-4e05-b66a-494db543a6a8",
+    "fields": {
+        "igdb_id": 119133,
+        "title": "Elden Ring",
+        "description": "Elden Ring is an action RPG developed by FromSoftware and published by Bandai Namco Entertainment, released in February 2022. Directed by Hidetaka Miyazaki, with world-building contributions from novelist George R. R. Martin, the game features an expansive open world called the Lands Between. Players assume the role of a customisable character known as the Tarnished, who must explore this world, battle formidable enemies, and seek to restore the Elden Ring to become the Elden Lord.\n\nThe game builds on the challenging gameplay mechanics familiar from the Dark Souls series but introduces a more open-ended structure with vast exploration, dynamic weather, and a day-night cycle. It offers deep lore, complex characters, and an interconnected world filled with secrets, dungeons, and powerful bosses.",
+        "genre": "Role-playing (RPG), Adventure",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co4jni.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-06T17:47:47.655Z",
+        "updated_at": "2026-05-06T17:47:47.655Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "205f7f22-d8b7-4f26-b972-ecf901227098",
+    "fields": {
+        "igdb_id": 989,
+        "title": "Halo 3: ODST",
+        "description": "New Mombasa is in ruins, yet the fight is far from over. Halo 3: ODST drops players onto the streets of the besieged city in this first-person shooter. Assume the role of ôThe Rookieö, an Orbital Drop Shock Trooper, and discover the truth behind the Covenant invasion. Engage in intense online multiplayer battles with the complete collection of Halo 3 multiplayer maps û including three all-new battlefields û and join your teammates in Firefight, a new cooperative mode that pits you against waves of Covenant invaders.",
+        "genre": "Shooter",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1xhh.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-06T17:51:11.128Z",
+        "updated_at": "2026-05-06T17:51:11.128Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "383e677a-85e9-4aa9-9e27-d0d6b853f08c",
+    "fields": {
+        "igdb_id": 150034,
+        "title": "Bloodborne: Complete Edition Bundle",
+        "description": "Bloodborne: Complete Edition Bundle includes Bloodborne full game plus The Old Hunters DLC expansion.\n\nHunt your nightmares as you search for answers in the ancient city of Yharnam, now cursed with a strange endemic illness spreading through the streets like wildfire. Danger, death and madness lurk around every corner of this dark and horrific world, and you must discover its darkest secrets in order to survive.\n\nExperience the nightmare of the hunters who once protected ByrgenwerthÆs darkest secrets and uncover the mystery behind YharnamÆs sinister past in The Old Hunters expansion DLC for Bloodborne.",
+        "genre": "Role-playing (RPG), Adventure",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob7sj.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-05T21:54:16.883Z",
+        "updated_at": "2026-05-05T21:54:16.883Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "3b64caf3-47c6-436b-98e2-38a079db5d81",
+    "fields": {
+        "igdb_id": 209166,
+        "title": "Ricochet",
+        "description": "Descripci≤n pendiente",
+        "genre": "Por definir",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co61kh.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-05T21:44:36.014Z",
+        "updated_at": "2026-05-05T21:44:36.014Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "3b6670a6-c199-4a6c-acea-d8fcc7d88752",
+    "fields": {
+        "igdb_id": 338079,
+        "title": "Elden Ring: Tarnished Edition",
+        "description": "This edition of the game includes the original game ôElden Ringö , the expansion ôShadow of the Erdtreeö, a new armor and horse appearance customization features.",
+        "genre": "Adventure",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob80m.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-05T21:44:03.911Z",
+        "updated_at": "2026-05-05T21:44:03.911Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "434a2097-a8f7-4d13-8b81-289341b0dcd8",
+    "fields": {
+        "igdb_id": 7334,
+        "title": "Bloodborne",
+        "description": "An action RPG in which the player embodies a Hunter who, after being transfused with the mysterious blood local to the city of Yharnam, sets off into a \"night of the Hunt\", an extended night in which Hunters may phase in and out of dream and reality in order to thin the outbreak of abominable beasts that plague the land and, for the more resilient and insightful Hunters, uncover the answers to the Hunt's many mysteries.",
+        "genre": "Role-playing (RPG), Adventure",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob99l.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-06T17:48:56.613Z",
+        "updated_at": "2026-05-06T17:48:56.613Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "446c4232-8a5c-49a0-b60d-fa88a09b7cdd",
+    "fields": {
+        "igdb_id": 119133,
+        "title": "Elden Ring",
+        "description": "Elden Ring is an action RPG developed by FromSoftware and published by Bandai Namco Entertainment, released in February 2022. Directed by Hidetaka Miyazaki, with world-building contributions from novelist George R. R. Martin, the game features an expansive open world called the Lands Between. Players assume the role of a customisable character known as the Tarnished, who must explore this world, battle formidable enemies, and seek to restore the Elden Ring to become the Elden Lord.\n\nThe game builds on the challenging gameplay mechanics familiar from the Dark Souls series but introduces a more open-ended structure with vast exploration, dynamic weather, and a day-night cycle. It offers deep lore, complex characters, and an interconnected world filled with secrets, dungeons, and powerful bosses.",
+        "genre": "Role-playing (RPG), Adventure",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co4jni.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-08T17:24:07.757Z",
+        "updated_at": "2026-05-08T17:24:07.757Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "516602e1-af2f-4a86-90dc-fc8e3adef130",
+    "fields": {
+        "igdb_id": 275104,
+        "title": "Shin Pokemon: Red Version",
+        "description": "Started in 2018 by a secret cabal of ancient Pokemon nerds, Shin Pokemon is an enhancement ROM hack of Pokemon Red & Blue that aims to be the ultimate remaster fans never got. It is a mostly-vanilla hack that focuses on fixing game engine bugs and oversights from the original game. Additionally, trainer AI routines are improved and multiple quality-of-life enhancements have been added. It also acts as a kind of research-informed speculative work that interprets what the 2016 Nintendo Virtual Console re-release of Gen-1 Pokemon could have been. It is the image of a glitch-free experience with player-friendly goodies and enhancements common to other modern remasterings.",
+        "genre": "Role-playing (RPG)",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co7k6q.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-05T21:49:19.528Z",
+        "updated_at": "2026-05-05T21:50:05.728Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "53279a6d-feeb-4d54-8e9b-93724a0b4a77",
+    "fields": {
+        "igdb_id": 13177,
+        "title": "The Binding of Isaac: Afterbirth",
+        "description": "The Binding of Isaac: Afterbirth is the massively updated expansion to 2014's roguelike of the year, The Binding of Isaac: Rebirth. Following Isaac one more time on his journey players will find bizarre treasures that change Isaac's form giving him super human abilities and enabling him to fight off droves of mysterious creatures, discover secrets and fight his way to safety.",
+        "genre": "Role-playing (RPG), Adventure, Indie",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co20ul.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-05T21:42:18.225Z",
+        "updated_at": "2026-05-05T21:42:18.225Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "70935a19-44e1-44a8-b670-20e815f36707",
+    "fields": {
+        "igdb_id": 124347,
+        "title": "JoJo's Pitter-Patter Pop!",
+        "description": "\"JoJo's Pitter Patter Pop\" official service started!\n\nCharacters of \"JoJo's Bizarre Adventure\" appear as tiny SD characters \"Pitta Character\"!\n\nCollect Pitta characters and battle with enemies with simple puzzles!\nWin victory with various skills such as stands and the Ripple!\n\nLet the collected Pitta characters move into the apartment.\nGet luxurious furniture with rewards you get with puzzles,\nYou can make your own JoJo Mansion!",
+        "genre": "Puzzle, Role-playing (RPG)",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co246s.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-05T21:46:48.952Z",
+        "updated_at": "2026-05-05T21:46:48.952Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "76771430-b60e-4c64-9202-7f42ee2ed9c1",
+    "fields": {
+        "igdb_id": 212089,
+        "title": "Lethal Company",
+        "description": "A co-op horror roguelite about an abandoned industrial moon.",
+        "genre": "Indie",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co5ive.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-06T17:54:21.336Z",
+        "updated_at": "2026-05-06T17:54:21.336Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "8bf07cc2-8625-4a3b-addb-a1bcc54d1eec",
+    "fields": {
+        "igdb_id": 492,
+        "title": "Gears of War 3",
+        "description": "Gears of War 3 is the spectacular conclusion to one of the most memorable and celebrated sagas in videogames. Gears of War 3 plunges players into a harrowing tale of hope, survival and brotherhood. In Gears of War 3, players fight on as Marcus Fenix, the grizzled war hero and leader of Delta Squad. Eighteen months after the fall of the last human city, the war against the Locust rages on. Meanwhile, deep beneath the surface, a fearsome new threat is infecting the planet from within. With survivors scattered and civilization in ruins, time is running out for Marcus and his comrades as they fight to save the human race.",
+        "genre": "Shooter",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co2a21.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-06T17:39:31.558Z",
+        "updated_at": "2026-05-06T17:39:31.558Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "9010d3a2-1a77-4007-a3a6-91a0136ad6c1",
+    "fields": {
+        "igdb_id": 1879,
+        "title": "Terraria",
+        "description": "Dig, Fight, Explore, Build: The very world is at your fingertips as you fight for survival, fortune, and glory. Will you delve deep into cavernous expanses in search of treasure and raw materials with which to craft ever-evolving gear, machinery, and aesthetics? Perhaps you will choose instead to seek out ever-greater foes to test your mettle in combat? Maybe you will decide to construct your own city to house the host of mysterious allies you may encounter along your travels? In the World of Terraria, the choice is yours!",
+        "genre": "Platform, Role-playing (RPG), Simulator, Strategy, Adventure, Indie",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/coaamg.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-08T17:23:20.156Z",
+        "updated_at": "2026-05-08T17:23:20.156Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "951d286a-6ee2-494d-a749-4fd6b23f8e6c",
+    "fields": {
+        "igdb_id": 7589,
+        "title": "Ricochet",
+        "description": "A futuristic action game that challenges your agility as well as your aim, Ricochet features one-on-one and team matches played in a variety of futuristic battle arenas.",
+        "genre": "Shooter, Puzzle",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co2r4z.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-06T17:40:29.692Z",
+        "updated_at": "2026-05-06T17:40:29.692Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "ba596e1b-808e-4dbc-9b29-518be7e6c73d",
+    "fields": {
+        "igdb_id": 337036,
+        "title": "Tomodachi Life: Living the Dream",
+        "description": "Create Mii characters based on family and friends, someone you admire, or something completely originalùthere are plenty of personality traits, little quirks, and physical traits to choose fromùincluding some face customization options you havenÆt seen before! Go deep into getting every detail just right, or create Miis quickly and easily by answering some simple questions, and then help them explore their likes and dislikes, find relationships, and get up to all sorts of fun. Your Miis are bound to surprise you as they take on a life of their own!",
+        "genre": "Simulator",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/cobdqd.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-05T21:45:00.774Z",
+        "updated_at": "2026-05-05T21:45:00.774Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "ec453bb9-3eef-40ee-ab68-1cbb0ecdf66f",
+    "fields": {
+        "igdb_id": 152122,
+        "title": "Doki Doki Literature Club Plus!",
+        "description": "Welcome to the club! Write poems for your crush and experience the terror of school romance in this critically-acclaimed psychological horror story.",
+        "genre": "Role-playing (RPG), Simulator, Adventure, Indie, Visual Novel",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/coawpa.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-06T17:56:31.713Z",
+        "updated_at": "2026-05-06T17:56:31.714Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "ee5ce5e6-3bfb-4d8d-9653-ea61f551452f",
+    "fields": {
+        "igdb_id": 104831,
+        "title": "Tomato Way 2",
+        "description": "Tomato Way is the only way.",
+        "genre": "Adventure, Indie",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co44q4.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-05T21:43:37.003Z",
+        "updated_at": "2026-05-05T21:43:37.003Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "f176f5c0-f831-4c94-96ec-affc1cb9a234",
+    "fields": {
+        "igdb_id": 2058,
+        "title": "Payday 2",
+        "description": "Payday 2 is an action-packed, four-player co-op shooter that once again lets gamers don the masks of the original crew: Dallas, Hoxton, Wolf and Chains as they descend on Washington D.C. for an epic crime spree.",
+        "genre": "Shooter, Role-playing (RPG), Tactical",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/coaaqu.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-06T17:53:28.091Z",
+        "updated_at": "2026-05-06T17:53:28.091Z"
+    }
+},
+{
+    "model": "store.product",
+    "pk": "f671a151-9150-4e1b-9bba-7fd26c22b648",
+    "fields": {
+        "igdb_id": 740,
+        "title": "Halo: Combat Evolved",
+        "description": "Bent on Humankind's extermination, a powerful fellowship of alien races known as the Covenant is wiping out Earth's fledgling interstellar empire. Climb into the boots of Master Chief, a biologically altered super-soldier, as you and the other surviving defenders of a devastated colony-world make a desperate attempt to lure the alien fleet away from earth. Shot down and marooned on the ancient ring-world Halo, you begin a guerilla-war against the Covenant. Fight for humanity against an alien onslaught as you race to uncover the mysteries of Halo.",
+        "genre": "Shooter",
+        "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co2r2r.jpg",
+        "image_url": null,
+        "is_available": true,
+        "created_at": "2026-05-10T14:43:23.259Z",
+        "updated_at": "2026-05-10T14:43:23.259Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "08defe92-24f3-4eaa-9369-304dfe252e7e",
+    "fields": {
+        "product": "ee5ce5e6-3bfb-4d8d-9653-ea61f551452f",
+        "key": "1111222233334444",
+        "is_used": false,
+        "price": "1000.00",
+        "platform": "PC",
+        "region": "Global",
+        "created_at": "2026-05-05T21:43:37.046Z",
+        "updated_at": "2026-05-05T21:43:37.046Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "1487596e-b9a6-481c-acdd-79e044453e33",
+    "fields": {
+        "product": "3b6670a6-c199-4a6c-acea-d8fcc7d88752",
+        "key": "111144442222666",
+        "is_used": false,
+        "price": "1400.00",
+        "platform": "PC",
+        "region": "Global",
+        "created_at": "2026-05-05T21:44:04.057Z",
+        "updated_at": "2026-05-05T21:44:04.057Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "1af7fa46-6a57-4468-ab66-5518f62c0521",
+    "fields": {
+        "product": "08bebdaf-7faa-47d9-a491-940bfe30af8b",
+        "key": "wrwerwerwrwer",
+        "is_used": false,
+        "price": "150.00",
+        "platform": "PlayStation",
+        "region": "Global",
+        "created_at": "2026-05-06T17:49:42.601Z",
+        "updated_at": "2026-05-06T17:49:42.601Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "271c02ff-683f-4a6c-a4af-1acd4981f3aa",
+    "fields": {
+        "product": "f176f5c0-f831-4c94-96ec-affc1cb9a234",
+        "key": "asdasdaffsdfs",
+        "is_used": false,
+        "price": "150.00",
+        "platform": "PC",
+        "region": "Global",
+        "created_at": "2026-05-06T17:53:28.256Z",
+        "updated_at": "2026-05-06T17:53:28.256Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "2a56f3aa-3fcd-47ca-917e-4e3df024f037",
+    "fields": {
+        "product": "76771430-b60e-4c64-9202-7f42ee2ed9c1",
+        "key": "165465465jghkjkghj",
+        "is_used": false,
+        "price": "100.00",
+        "platform": "PC",
+        "region": "Global",
+        "created_at": "2026-05-06T17:54:21.451Z",
+        "updated_at": "2026-05-06T17:54:21.451Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "5e69ee30-5794-4d9b-98ee-68c44406e583",
+    "fields": {
+        "product": "53279a6d-feeb-4d54-8e9b-93724a0b4a77",
+        "key": "4444555566667777",
+        "is_used": false,
+        "price": "300.00",
+        "platform": "PC",
+        "region": "MX",
+        "created_at": "2026-05-05T21:42:18.386Z",
+        "updated_at": "2026-05-05T21:42:18.386Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "8cefd01e-21b6-490f-af17-b7380a794a11",
+    "fields": {
+        "product": "951d286a-6ee2-494d-a749-4fd6b23f8e6c",
+        "key": "44444444444",
+        "is_used": false,
+        "price": "64.00",
+        "platform": "PC",
+        "region": "Global",
+        "created_at": "2026-05-06T17:40:29.869Z",
+        "updated_at": "2026-05-06T17:40:29.869Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "8dd09d1a-1cb1-4c8d-b5a0-d33895384fad",
+    "fields": {
+        "product": "ec453bb9-3eef-40ee-ab68-1cbb0ecdf66f",
+        "key": "jiojasijdioeq13",
+        "is_used": false,
+        "price": "120.00",
+        "platform": "PC",
+        "region": "Global",
+        "created_at": "2026-05-06T17:56:31.974Z",
+        "updated_at": "2026-05-06T17:56:31.974Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "a16fc326-5b77-4b45-a07d-b06cb92f8c1a",
+    "fields": {
+        "product": "383e677a-85e9-4aa9-9e27-d0d6b853f08c",
+        "key": "asdq12er54df78yt",
+        "is_used": true,
+        "price": "500.00",
+        "platform": "PlayStation",
+        "region": "Global",
+        "created_at": "2026-05-05T21:54:17.029Z",
+        "updated_at": "2026-05-06T02:07:41.460Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "a2c41983-1bc0-465c-8ef2-bd3bfdaef2e9",
+    "fields": {
+        "product": "446c4232-8a5c-49a0-b60d-fa88a09b7cdd",
+        "key": "123123",
+        "is_used": false,
+        "price": "150.00",
+        "platform": "PC",
+        "region": "Global",
+        "created_at": "2026-05-08T17:24:07.982Z",
+        "updated_at": "2026-05-08T17:24:07.982Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "a2d05c15-c63c-45a3-9d6c-37488ead6d48",
+    "fields": {
+        "product": "ba596e1b-808e-4dbc-9b29-518be7e6c73d",
+        "key": "444466668888asdd",
+        "is_used": false,
+        "price": "700.00",
+        "platform": "Nintendo",
+        "region": "Global",
+        "created_at": "2026-05-05T21:45:00.818Z",
+        "updated_at": "2026-05-05T21:45:00.818Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "a33e1dfb-f4e4-4614-bea2-f22a8e4caefa",
+    "fields": {
+        "product": "434a2097-a8f7-4d13-8b81-289341b0dcd8",
+        "key": "dfqeqwweqasad",
+        "is_used": false,
+        "price": "350.00",
+        "platform": "PlayStation",
+        "region": "Global",
+        "created_at": "2026-05-06T17:48:56.824Z",
+        "updated_at": "2026-05-06T17:48:56.824Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "ac3d7e1a-7805-4545-9500-a21aee106746",
+    "fields": {
+        "product": "3b64caf3-47c6-436b-98e2-38a079db5d81",
+        "key": "asdq1515tyoe5410",
+        "is_used": false,
+        "price": "0.00",
+        "platform": "PC",
+        "region": "Global",
+        "created_at": "2026-05-05T21:44:36.053Z",
+        "updated_at": "2026-05-05T21:44:36.053Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "ca5fd313-b083-4cec-82ae-244e1d38e60d",
+    "fields": {
+        "product": "205f7f22-d8b7-4f26-b972-ecf901227098",
+        "key": "12ad 2e 1e 1edq sdasd",
+        "is_used": false,
+        "price": "6000.00",
+        "platform": "Xbox",
+        "region": "Global",
+        "created_at": "2026-05-06T17:51:11.387Z",
+        "updated_at": "2026-05-06T17:51:11.387Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "ca84cf06-23e2-4f5c-b620-1a351f39d8ab",
+    "fields": {
+        "product": "9010d3a2-1a77-4007-a3a6-91a0136ad6c1",
+        "key": "2131231234",
+        "is_used": false,
+        "price": "200.00",
+        "platform": "PC",
+        "region": "Global",
+        "created_at": "2026-05-08T17:23:20.357Z",
+        "updated_at": "2026-05-08T17:23:20.357Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "cb8019a7-ec20-40c8-abb6-9b6a4d24226a",
+    "fields": {
+        "product": "516602e1-af2f-4a86-90dc-fc8e3adef130",
+        "key": "1234qwer4567erty",
+        "is_used": false,
+        "price": "15000.00",
+        "platform": "Nintendo",
+        "region": "Global",
+        "created_at": "2026-05-05T21:49:19.668Z",
+        "updated_at": "2026-05-05T21:50:05.771Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "dff29f5b-b45b-4d2e-bb34-3415014fda83",
+    "fields": {
+        "product": "f671a151-9150-4e1b-9bba-7fd26c22b648",
+        "key": "2341312",
+        "is_used": false,
+        "price": "250.00",
+        "platform": "Xbox",
+        "region": "Global",
+        "created_at": "2026-05-10T14:43:23.471Z",
+        "updated_at": "2026-05-10T14:43:23.471Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "e36a867f-95b5-4b00-9e23-12e807ce473d",
+    "fields": {
+        "product": "15f6798f-0fd0-4e05-b66a-494db543a6a8",
+        "key": "asdasdasdasd",
+        "is_used": false,
+        "price": "900.02",
+        "platform": "PC",
+        "region": "Global",
+        "created_at": "2026-05-06T17:47:47.830Z",
+        "updated_at": "2026-05-06T17:47:47.830Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "e896ef9b-24d1-43e7-93a3-fd49d7613bf7",
+    "fields": {
+        "product": "70935a19-44e1-44a8-b670-20e815f36707",
+        "key": "qw7812er2165vc76",
+        "is_used": false,
+        "price": "150.00",
+        "platform": "PlayStation",
+        "region": "Global",
+        "created_at": "2026-05-05T21:46:48.990Z",
+        "updated_at": "2026-05-05T21:46:48.990Z"
+    }
+},
+{
+    "model": "store.keycode",
+    "pk": "fc2077b8-4536-458c-988c-d5c58739299c",
+    "fields": {
+        "product": "8bf07cc2-8625-4a3b-addb-a1bcc54d1eec",
+        "key": "000000000000",
+        "is_used": true,
+        "price": "200.00",
+        "platform": "Xbox",
+        "region": "Global",
+        "created_at": "2026-05-06T17:39:31.658Z",
+        "updated_at": "2026-05-10T14:44:21.283Z"
+    }
+},
+{
+    "model": "store.sale",
+    "pk": "46e2cd01-5e06-4073-aa83-09461cbf6516",
+    "fields": {
+        "user": [
+            "pollis"
+        ],
+        "key_code": "fc2077b8-4536-458c-988c-d5c58739299c",
+        "payment_method": "PayPal",
+        "purchased_at": "2026-05-10T14:44:21.294Z"
+    }
+},
+{
+    "model": "store.sale",
+    "pk": "7efc1a4f-f30e-4043-937a-ce7d108ba47b",
+    "fields": {
+        "user": [
+            "GamerPrueba"
+        ],
+        "key_code": "a16fc326-5b77-4b45-a07d-b06cb92f8c1a",
+        "payment_method": "Credit Card",
+        "purchased_at": "2026-05-06T02:07:41.476Z"
+    }
+},
+{
+    "model": "authtoken.token",
+    "pk": "22065218105f5699c0d59ef5318a67552724f955",
+    "fields": {
+        "user": [
+            "ikersol"
+        ],
+        "created": "2026-05-04T21:40:52.914Z"
+    }
+},
+{
+    "model": "authtoken.token",
+    "pk": "2b3a5bedb97656259a1f2b5867d6f7f9546fa3f4",
+    "fields": {
+        "user": [
+            "GamerPrueba"
+        ],
+        "created": "2026-05-04T21:56:54.817Z"
+    }
+}
+]

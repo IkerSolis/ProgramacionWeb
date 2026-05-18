@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'django_filters',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -151,3 +152,14 @@ CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', default=True, cast=boo
 cors_origins_str = config('CORS_ALLOWED_ORIGINS', default='')
 if cors_origins_str:
     CORS_ALLOWED_ORIGINS = cors_origins_str.split(',')
+
+# Configuración de AWS S3 para archivos estáticos e imágenes
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default=None)
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY', default=None)
+AWS_STORAGE_BUCKET_NAME = 'nexuskey-media-imagenes'
+AWS_S3_REGION_NAME = 'us-east-2'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+# Solo usar S3 para Media files, los estáticos (CSS/JS) los maneja WhiteNoise
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
